@@ -1,0 +1,33 @@
+/* Force flatpickr RTL */
+.flatpickr-calendar {
+    direction: rtl;
+    text-align: right;
+}
+
+.flatpickr-months {
+    direction: rtl;
+}
+
+.flatpickr-weekdays {
+    direction: rtl;
+}
+
+.flatpickr-days {
+    direction: rtl;
+}
+
+.flatpickr-time {
+    direction: rtl;
+}
+
+.flatpickr-day.selected.startRange,
+.flatpickr-day.startRange.startRange,
+.flatpickr-day.endRange.startRange {
+    border-radius: 0 50px 50px 0 !important;
+}
+
+.flatpickr-day.selected.endRange,
+.flatpickr-day.startRange.endRange,
+.flatpickr-day.endRange.endRange {
+    border-radius: 50px 0 0 50px !important;
+}
