@@ -1,6 +1,8 @@
 <?php
 
+use LdapRecord\Container;
 use Illuminate\Support\Facades\Route;
+use LdapRecord\Models\ActiveDirectory\User;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Defect\DefectController;
@@ -20,11 +22,5 @@ Route::resource('departments',    DepartmentController::class);
 Route::resource('defectrequests', DefectRequestController::class);
 
 Route::get('import', [ImportController::class, 'importCsv']);
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__ . '/auth.php';
