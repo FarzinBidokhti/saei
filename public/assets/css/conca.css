@@ -194,6 +194,8 @@
 
 .pure-card-header {
   padding: 30px 30px 30px;
+  background-color: #C7D7FF;
+  margin-bottom: 10px;
 }
 
 .pure-card-body {
@@ -1451,7 +1453,7 @@ button {
   margin-inline-end: 12px;
 }
 .app-sidebar-menu ul li a:hover, .app-sidebar-menu ul li a.active {
-  background-color: var(--app-sidebar-menu-hover-bg);
+  background-color: #1B3A82;
 }
 .app-sidebar-menu ul li a.menu-current {
   background-color: var(--bs-primary);
@@ -1540,7 +1542,7 @@ button {
 .app-header {
   height: var(--app-header-height);
   box-shadow: var(--app-header-shadow);
-  background-color: var(--bs-card-bg);
+  background-color: #C7D7FF;
 }
 
 .app-header-search-input {
@@ -1629,7 +1631,7 @@ button {
 }
 
 .app-sidebar-footer {
-  border-top: 1px solid var(--bs-border-color);
+  border-top: 1px solid #132B5C;
   display: flex;
   align-items: center;
   gap: 10px;

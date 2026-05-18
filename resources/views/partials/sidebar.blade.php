@@ -1,10 +1,11 @@
 <div class="app-sidebar overflow-hidden" id="app-sidebar">
-    <div class="app-sidebar-wrapper">
+    <div class="app-sidebar-wrapper" style="background-color: #132B5C">
         <div class="app-sidebar-header d-flex align-items-center justify-content-between">
             <a class="app-sidebar-logo" href="index.html">
-                <img alt="Conca" class="app-main-logo logo-black" src="{{ asset('assets/img/logo/logo.png') }}" width="105" />
-                <img alt="Conca" class="app-main-logo logo-white d-none" src="{{ asset('assets/img/logo/logo-white.png') }}"
+                <img alt="Conca" class="app-main-logo logo-black" src="{{ asset('assets/img/logo/logo.png') }}"
                     width="105" />
+                <img alt="Conca" class="app-main-logo logo-white d-none"
+                    src="{{ asset('assets/img/logo/logo-white.png') }}" width="105" />
             </a>
             <button class="app-sidebar-close-btn app-sidebar-mobile-close d-xl-none" type="button">
                 <svg fill="none" height="12" viewbox="0 0 20 12" width="20"
@@ -17,7 +18,7 @@
         </div>
 
         <div class="app-sidebar-menu" id="app-sidebar-menu">
-            <ul>
+            <ul style="color: #EAF0FF">
                 <li class="app-sidebar-menu-item">
                     <a class="menu-link d-flex align-items-center" href="app-chat.html">
                         <span class="menu-icon flex-shrink-0">
@@ -150,17 +151,20 @@
                 <div class="avatar rounded-pill">
                     <img alt="conca" src="{{ asset('assets/img/avatar/10.jpg') }}" />
                 </div>
-                <div class="">
-                    <h6 class="mb-0">
-                        فرزین بیدختی
+
+                <div>
+                    <h6 class="mb-0" style="color: #EAF0FF">
+                        @auth
+                            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                        @endauth
                     </h6>
-                    <span class="text-muted">
+                    <span style="color: #EAF0FF">
                         مدیر
                     </span>
                 </div>
             </div>
             <div class="">
-                <button aria-expanded="false" class="dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <button aria-expanded="false" class="dropdown-toggle hide-arrow" data-bs-toggle="dropdown" style="color: #EAF0FF">
                     <svg fill="none" height="15" viewbox="0 0 11 15" width="11"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -175,9 +179,10 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                            خروج از سیستم
-                        </a>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="text-danger ps-5 fs-4" type="submit">خروج از سیستم</button>
+                        </form>
                     </li>
                 </ul>
             </div>
