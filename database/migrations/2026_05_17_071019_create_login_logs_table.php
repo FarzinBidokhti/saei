@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->string('username')->nullable();
-            $table->string('session_id')->nullable();
+            $table->string('session_id')->nullable()->index();
             $table->ipAddress('ip_address')->nullable();
             $table->string('device_type')->nullable();
             $table->string('browser')->nullable();
