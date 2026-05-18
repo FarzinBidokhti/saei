@@ -20,10 +20,10 @@
                             <div class="pure-card-header d-flex flex-wrap align-items-center justify-content-between gap-7">
                                 <h3 class="pure-card-title d-flex align-items-center gap-2 m-0">
                                     <span class="text-primary d-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                            fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            fill="currentColor" class="bi bi-bounding-box" viewBox="0 0 16 16">
+                                            <path
+                                                d="M5 2V0H0v5h2v6H0v5h5v-2h6v2h5v-5h-2V5h2V0h-5v2zm6 1v2h2v6h-2v2H5v-2H3V5h2V3zm1-2h3v3h-3zm3 11v3h-3v-3zM4 15H1v-3h3zM1 4V1h3v3z" />
                                         </svg>
                                     </span>
                                     لیست عیوب
