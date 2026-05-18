@@ -10,7 +10,7 @@ use App\Http\Controllers\SubDefect\SubDefectController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\DefectRequest\DefectRequestController;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'check.session'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

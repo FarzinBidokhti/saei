@@ -37,8 +37,8 @@
                                     <label class="form-label fw-bold fs-4" for="username">
                                         نام کاربری
                                     </label>
-                                    <input class="form-control" id="username" type="text" name="username"
-                                        autocomplete="username" />
+                                    <input class="form-control text-start" id="username" type="text" name="username"
+                                        autocomplete="username"  />
                                 </div>
 
                                 <div class="mb-3">
@@ -47,7 +47,7 @@
                                     </label>
 
                                     <div class="input-group mb-3">
-                                        <input class="form-control" id="password" type="password" name="password"
+                                        <input class="form-control text-start" id="password" type="password" name="password"
                                             autocomplete="new-password" />
                                     </div>
                                 </div>
