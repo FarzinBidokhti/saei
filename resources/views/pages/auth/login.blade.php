@@ -31,32 +31,35 @@
                                     نام کاربری و کلمه عبور را وارد نمایید
                                 </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-bold fs-4" for="loginEmail">
-                                    نام کاربری
-                                </label>
-                                <input class="form-control" id="loginEmail" placeholder="mali@example.com" type="email" />
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-bold fs-4" for="loginPassword">
-                                    رمز عبور
-                                </label>
-
-                                <div class="input-group mb-3">
-                                    <input class="form-control" id="loginPassword" placeholder="**********"
-                                        type="password" />
+                            <form action="{{ route('login') }}" method="post">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-4" for="username">
+                                        نام کاربری
+                                    </label>
+                                    <input class="form-control" id="username" type="text" name="username"
+                                        autocomplete="username" />
                                 </div>
-                            </div>
 
-                            <div class="mb-3">
-                                <div class="text-center">
-                                    <button class="btn btn-primary w-100" type="submit">
-                                        ورود به سامانه
-                                    </button>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-4" for="password">
+                                        رمز عبور
+                                    </label>
+
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" id="password" type="password" name="password"
+                                            autocomplete="new-password" />
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="mb-3">
+                                    <div class="text-center">
+                                        <button class="btn btn-primary w-100" type="submit">
+                                            ورود به سامانه
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
                         <p class="text-center fw-bold">
@@ -66,5 +69,71 @@
                 </div>
             </div>
         </div>
+
+        @if (session('session_conflict'))
+            <div class="modal fade show" id="sessionModal" style="display:block;background:rgba(0,0,0,.5)">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header text-white alert alert-danger alert-dismissible fade show">
+                            <h5 class="modal-title">
+                                کاربر هم اکنون در سیستم لاگین است
+                            </h5>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                    <tr>
+                                        <th>آی پی</th>
+                                        <th>دستگاه</th>
+                                        <th>مرورگر</th>
+                                        <th>سیستم عامل</th>
+                                        <th>تاریخ و زمان ورود</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @foreach (session('sessions') as $s)
+                                        <tr>
+                                            <td>{{ $s->ip_address }}</td>
+                                            <td>{{ $s->device_type }}</td>
+                                            <td>{{ $s->browser }}</td>
+                                            <td>{{ $s->os }}</td>
+                                            <td>{{ verta($s->login_at)->format('H:i - Y/m/d') }}</td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <form action="{{ route('force.login') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="username" value="{{ old('username') }}">
+                                <input type="hidden" name="password" value="{{ old('password') }}">
+
+                                <button class="btn btn-label-danger" type="submit">
+                                    خروج از دستگاه قبلی و ورود
+                                </button>
+                            </form>
+
+                            <button type="button" class="btn btn-label-light" onclick="window.location.reload()">
+                                انصراف
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
