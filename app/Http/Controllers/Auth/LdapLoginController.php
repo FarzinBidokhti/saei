@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 
 use App\Models\User;
+use App\Models\LoginLog;
 use Illuminate\Support\Str;
+use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,17 +33,46 @@ class LdapLoginController extends Controller
             return back();
         }
 
-        $username = $request->username;
-        $password = $request->password;
+        $agent      = new Agent();
+        $username   = $request->username;
+        $password   = $request->password;
+        $ldapUser   = LdapUser::where('samaccountname', '=', $username)->first();
+        $deviceType = 'desktop';
 
-        $ldapUser = LdapUser::where('samaccountname', '=', $username)->first();
+        if ($agent->isTablet()) {
+            $deviceType = 'tablet';
+        } elseif ($agent->isMobile()) {
+            $deviceType = 'mobile';
+        }
 
         if (!$ldapUser) {
+            LoginLog::create([
+                'username'   => $username,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'login_at'   => now(),
+                'status'     => 0,
+                'description' => 'نام کاربری یافت نشد.'
+            ]);
+
             Alert::error('خطای ورود', 'نام کاربری یافت نشد.');
             return back()->withInput();
         }
 
-        if (!$ldapUser->attempt($password)) {
+        if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
+            LoginLog::create([
+
+                'username'    => $username,
+                'session_id'  => session()->getId(),
+                'ip_address'  => $request->ip(),
+                'device_type' => $deviceType,
+                'browser'     => $agent->browser(),
+                'os'          => $agent->platform(),
+                'login_at'    => now(),
+                'status'      => 0,
+                'description' => 'نام کاربری یا کلمه عبور اشتباه است.',
+            ]);
+
             Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
             return back()->withInput();
         }
@@ -60,11 +91,48 @@ class LdapLoginController extends Controller
         }
 
         if (!$user->is_active) {
+            LoginLog::create([
+                'user_id'     => $user->id,
+                'username'    => $username,
+                'session_id'  => session()->getId(),
+                'ip_address'  => $request->ip(),
+                'device_type' => $deviceType,
+                'browser'     => $agent->browser(),
+                'os'          => $agent->platform(),
+                'status'      => 0,
+                'description' => 'حساب کاربری شما فعال نمی باشد.',
+            ]);
+
             Alert::error('خطای دسترسی', 'حساب کاربری شما فعال نمی باشد.');
             return back();
         }
 
+        $activeSession = LoginLog::where('user_id', $user->id)
+            ->whereNull('logout_at')
+            ->whereNotNull('login_at')
+            ->get();
+
+        if ($activeSession) {
+
+            return back()->with([
+                'session_conflict' => true,
+                'sessions'         => $activeSession
+            ])->withInput();
+        }
+
         Auth::login($user);
+
+        LoginLog::create([
+            'user_id'     => $user->id,
+            'username'    => $username,
+            'session_id'  => session()->getId(),
+            'ip_address'  => $request->ip(),
+            'device_type' => $deviceType,
+            'browser'     => $agent->browser(),
+            'os'          => $agent->platform(),
+            'login_at'    => now(),
+            'status'      => 1,
+        ]);
 
         Alert::success('ورود موفق', 'شما با موفقیت وارد سامانه شده اید.');
 
@@ -73,11 +141,65 @@ class LdapLoginController extends Controller
 
     public function destroy(Request $request)
     {
+        LoginLog::where('session_id', session()->getId())
+            ->update([
+                'logout_at' => now()
+            ]);
+
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.form');
+        return redirect()->route('login');
+    }
+
+    public function forceLogin(Request $request)
+    {
+        $username   = $request->username;
+        $password   = $request->password;
+        $ldapUser   = LdapUser::where('samaccountname', '=', $username)->first();
+        $agent      = new Agent();
+        $deviceType = 'desktop';
+
+        if ($agent->isTablet()) {
+            $deviceType = 'tablet';
+        } elseif ($agent->isMobile()) {
+            $deviceType = 'mobile';
+        }
+
+
+        if (!$ldapUser) {
+            return redirect()->route('login');
+        }
+
+        if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
+            return redirect()->route('login');
+        }
+
+        $user = User::where('username', $username)->first();
+
+        LoginLog::where('user_id', $user->id)
+            ->whereNull('logout_at')
+            ->update([
+                'logout_at'   => now(),
+                'description' => 'منقضی شدن Session توسط ورود جدید'
+            ]);
+
+        Auth::login($user);
+
+        LoginLog::create([
+            'user_id'     => $user->id,
+            'username'    => $username,
+            'session_id'  => session()->getId(),
+            'ip_address'  => $request->ip(),
+            'device_type' => $deviceType,
+            'browser'     => $agent->browser(),
+            'os'          => $agent->platform(),
+            'login_at'    => now(),
+            'status'      => 1,
+        ]);
+
+        return redirect()->route('dashboard');
     }
 }
