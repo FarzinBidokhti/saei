@@ -21,7 +21,7 @@ Route::middleware(['auth', 'check.session'])->group(function () {
     Route::resource('departments',    DepartmentController::class);
     Route::resource('defectrequests', DefectRequestController::class);
 
-    Route::get('loginlog',      [LoginLogController::class, 'index']);
+    Route::get('loginlog',      [LoginLogController::class, 'index'])->name('login-log');
     Route::get('import',        [ImportController::class, 'importCsv']);
 });
 
