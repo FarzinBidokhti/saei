@@ -49,7 +49,9 @@ class LdapLoginController extends Controller
             LoginLog::create([
                 'username'   => $username,
                 'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
+                'device_type' => $deviceType,
+                'browser'     => $agent->browser(),
+                'os'          => $agent->platform(),
                 'login_at'   => now(),
                 'status'     => 0,
                 'description' => 'نام کاربری یافت نشد.'
@@ -112,8 +114,7 @@ class LdapLoginController extends Controller
             ->whereNotNull('login_at')
             ->get();
 
-        if ($activeSession) {
-
+        if ($activeSession->isNotEmpty()) {
             return back()->with([
                 'session_conflict' => true,
                 'sessions'         => $activeSession
