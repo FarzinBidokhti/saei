@@ -73,7 +73,7 @@ class DefectSearch extends Component
 
     public function submitRequest($processId, $sectionId)
     {
-        $requestId = 'DR-' . time() . '-' . random_int(10000, 99999);
+        $requestId = time() . random_int(10000, 99999);
 
         DefectRequest::create([
             'user_id'           => 1,
