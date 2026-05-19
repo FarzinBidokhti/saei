@@ -18,6 +18,11 @@ class DefectRequest extends Model
         'process_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function defect()
     {
         return $this->belongsTo(Defect::class);

@@ -40,6 +40,7 @@ final class DefectRequestTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
+            'user'      => ['first_name'],
             'section'   => ['title'],
             'defect'    => ['title'],
             'subDefect' => ['title'],
@@ -52,9 +53,12 @@ final class DefectRequestTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add(
                 'defect_request_id',
-                fn(DefectRequest $defectRequest) => '<span class="badge badge-label-info fs-3">' . $defectRequest->defect_request_id . '</span>'
+                fn(DefectRequest $defectRequest) =>
+                '<span class="badge badge-label-info fs-3">' .
+                    'DR-' . $defectRequest->defect_request_id . '-' . substr($defectRequest->defect_request_id, strlen($defectRequest->defect_request_id) - 5, 5) .
+                    '</span>'
             )
-            ->add('user_id')
+            ->add('user_id',          fn($model) => $model->user?->first_name . ' ' . $model->user?->last_name)
             ->add('section_title',    fn($model) => $model->section?->title)
             ->add('defect_title',     fn($model) => $model->defect?->title)
             ->add('sub_defect_title', fn($model) => $model->subDefect?->title)
