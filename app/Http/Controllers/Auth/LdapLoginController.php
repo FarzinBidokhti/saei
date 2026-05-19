@@ -86,7 +86,6 @@ class LdapLoginController extends Controller
                 'first_name' => $ldapUser->getFirstAttribute('givenname') ?? '',
                 'last_name'  => $ldapUser->getFirstAttribute('sn') ?? '',
                 'username'   => $username,
-                'password'   => Hash::make(Str::random(32)),
                 'work_at'    => 'default',
                 'is_active'  => 1,
             ]);
