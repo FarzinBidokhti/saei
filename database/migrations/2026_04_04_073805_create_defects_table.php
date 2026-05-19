@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('defects', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->bigInteger('code');
             $table->string('title')->nullable();
             $table->boolean('is_show')->default(true);
             $table->timestamps();

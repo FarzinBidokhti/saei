@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sub_defects', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('defect_id');
-            $table->string('code')->nullable();
+            $table->bigInteger('code')->nullable();
             $table->string('title')->nullable();
             $table->boolean('is_show')->default(true);
             $table->timestamps();

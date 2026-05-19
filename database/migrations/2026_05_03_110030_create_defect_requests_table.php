@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('defect_requests', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('defect_request_id')->unique();
+            $table->bigInteger('defect_request_id')->unique();
             $table->bigInteger('section_id');
             $table->bigInteger('defect_id');
             $table->bigInteger('sub_defect_id');
             $table->bigInteger('process_id');
-            $table->text('reason_text')->nullable();
+            $table->string('reason_text')->nullable();
             $table->boolean('type')->default(0);
             $table->timestamps();
             $table->softDeletes();
