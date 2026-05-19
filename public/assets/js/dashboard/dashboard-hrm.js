@@ -23,7 +23,7 @@
                 ],
                 chart: {
                     height: 330,
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     type: 'line',
                     stacked: false,
                     toolbar: {
@@ -105,14 +105,14 @@
                             expandOnClick: false,
                             donut: {
                                 size: "80%",
-                                fontFamily: "Peyda",
+                                fontFamily: "vazirmatn",
                                 background: "transparent",
                                 labels: { show: false },
                             },
                         },
                     },
                     colors: [
-                        `var(--bs-${color})`, 
+                        `var(--bs-${color})`,
                         `rgba(var(--bs-${color}-rgb), 0.15)`
                     ],
                     tooltip: { enabled: false }
@@ -150,9 +150,9 @@
 
 
         var el3 = document.querySelector("#team-work-chart");
-            if (el3) { 
+            if (el3) {
                 el3.innerHTML = '';
-                new ApexCharts(el3, options).render(); 
+                new ApexCharts(el3, options).render();
             }
         }
 
@@ -166,6 +166,6 @@
             }, 1000);
     });
 
-  
+
 
 }(jQuery));

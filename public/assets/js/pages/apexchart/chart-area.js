@@ -12,7 +12,7 @@
                 data: series.monthDataSeries1.prices
             }],
             chart: {
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 type: 'area',
                 height: 320,
                 zoom: {
@@ -85,7 +85,7 @@
             chart: {
                 height: 320,
                 type: 'area',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
             },
             colors: ["#735dff", "#ff5a29"],
             dataLabels: {
@@ -93,12 +93,12 @@
             },
             stroke: {
                 curve: 'smooth',
-                width: 2,   
+                width: 2,
             },
             grid: {
                 borderColor: '#f2f5f7',
             },
-            
+
             xaxis: {
                 type: 'datetime',
                 categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
@@ -189,7 +189,7 @@
         chart: {
             type: 'area',
             height: 350,
-            fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
             stacked: true,
             events: {
                 selection: function (chart, e) {
@@ -410,7 +410,7 @@
         }],
         chart: {
             type: 'area',
-            fontFamily: "Peyda",
+            fontFamily: "vazirmatn",
             height: 355
         },
         dataLabels: {
@@ -513,9 +513,9 @@
         };
 
                 var el3 = document.querySelector("#area-negative");
-                    if (el3) { 
+                    if (el3) {
                         el3.innerHTML = '';
-                        new ApexCharts(el3, options).render(); 
+                        new ApexCharts(el3, options).render();
                     }
                 }
 

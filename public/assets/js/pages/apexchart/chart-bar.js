@@ -11,7 +11,7 @@
             }],
             chart: {
                 type: 'bar',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 height: 320
             },
             plotOptions: {
@@ -76,7 +76,7 @@
             }],
             chart: {
                 type: 'bar',
-                height: 320 
+                height: 320
             },
             plotOptions: {
                 bar: {
@@ -174,7 +174,7 @@
             }],
             chart: {
                 type: 'bar',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 height: 320,
                 stacked: true,
             },
@@ -345,7 +345,7 @@
                 align: 'left',
                 style: {
                     fontSize: '13px',
-                    fontFamily:"Peyda",
+                    fontFamily:"vazirmatn",
                     fontWeight: 'bold',
                     color: '#8c9097'
                 },
@@ -359,7 +359,7 @@
                     text: 'درصد',
                     style: {
                         color: "#8c9097",
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                     }
                 },
                 labels: {

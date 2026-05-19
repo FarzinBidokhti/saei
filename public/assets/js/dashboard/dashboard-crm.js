@@ -332,7 +332,7 @@
             chart: {
                 height: 350,
                 type: 'radar',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 dropShadow: {
                     enabled: true,
                     blur: 2,
@@ -358,9 +358,9 @@
         };
 
         var el3 = document.querySelector("#team-performance");
-                if (el3) { 
+                if (el3) {
                     el3.innerHTML = '';
-                    new ApexCharts(el3, options).render(); 
+                    new ApexCharts(el3, options).render();
                 }
             }
 
@@ -374,9 +374,9 @@
                 }, 1000);
             });
 
-      
 
-    
+
+
 
 
 }(jQuery));

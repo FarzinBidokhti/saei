@@ -16,7 +16,7 @@
                 }],
                 chart: {
                     height: 320,
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     type: 'line',
                 },
                 stroke: {
@@ -121,7 +121,7 @@
                 }],
                 chart: {
                     height: 320,
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     type: 'line',
                     stacked: false
                 },
@@ -272,7 +272,7 @@
                 }],
                 chart: {
                     height: 320,
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     type: 'line',
                 },
                 stroke: {
@@ -389,7 +389,7 @@
                 }],
                 chart: {
                     height: 320,
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     type: 'line',
                     stacked: false,
                 },

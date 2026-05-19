@@ -2,7 +2,7 @@
     'use strict';
     function renderAllCharts() {
         if (typeof ApexCharts === 'undefined') return;
-    
+
         /* basic column chart */
         var options = {
             series: [
@@ -25,7 +25,7 @@
             chart: {
                 height: 330,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 toolbar: {
                     show: false
                 }
@@ -38,7 +38,7 @@
                 bar: {
                     horizontal: false,
                     columnWidth: '45%',
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     borderRadius: 5,
                 },
             },
@@ -50,7 +50,7 @@
                 },
                 style: {
                     fontSize: '11px',
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     colors: ['#555']
                 }
             },
@@ -61,7 +61,7 @@
                     style: {
                         colors: "#8c9097",
                         fontSize: '11px',
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                         fontWeight: 600,
                     }
                 }
@@ -70,12 +70,12 @@
                 {
                     title: {
                         text: 'درآمد (هزار دلار)',
-                        style: { color: "#8c9097", fontFamily: "Peyda", }
+                        style: { color: "#8c9097", fontFamily: "vazirmatn", }
                     },
                     labels: {
                         style: {
                             colors: "#8c9097",
-                            fontFamily: "Peyda",
+                            fontFamily: "vazirmatn",
                             fontSize: '11px',
                             fontWeight: 600,
                         }
@@ -85,12 +85,12 @@
                     opposite: true,
                     title: {
                         text: 'کاربر فعال',
-                        style: { color: "#8c9097", fontFamily: "Peyda", }
+                        style: { color: "#8c9097", fontFamily: "vazirmatn", }
                     },
                     labels: {
                         style: {
                             colors: "#8c9097",
-                            fontFamily: "Peyda",
+                            fontFamily: "vazirmatn",
                             fontSize: '11px',
                             fontWeight: 600,
                         }
@@ -121,7 +121,7 @@
             legend: {
                 show: true,
                 position: 'bottom',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 offsetY: 6,
                 fontSize: '12px',
                 fontWeight: 600,
@@ -140,7 +140,7 @@
             labels: ['مستقیم', 'سرچ ارگانیک', 'سوشال مدیا', 'ایمیل', 'معرفی‌شده'],
             chart: {
                 type: 'polarArea',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 height: 300
             },
             stroke: {
@@ -153,7 +153,7 @@
             legend: {
                 position: 'bottom',
                 fontSize: '12px',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 fontWeight: 600,
                 labels: {
                     colors: '#8c9097'
@@ -191,14 +191,14 @@
         var chart = new ApexCharts(document.querySelector("#polararea-basic"), sourceOptions);
         chart.render();
 
-        
+
         var options = {
             series: [
                 {
                     name: 'جلسات',
                     type: 'column',
                     data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
-                }, 
+                },
                 {
                     name: 'بازدید',
                     type: 'column',
@@ -213,7 +213,7 @@
             chart: {
                 height: 320,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 align: "right",
             },
             stroke: {
@@ -231,11 +231,11 @@
             },
             title: {
                 text: 'آنالیزهای وبسایت',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 align: 'left',
                 style: {
                     fontSize: '13px',
-                    fontFamily: "Peyda",
+                    fontFamily: "vazirmatn",
                     fontWeight: 'bold',
                     color: '#8c9097'
                 },
@@ -269,7 +269,7 @@
                     show: true,
                     style: {
                         colors: "#8c9097",
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                         fontSize: '11px',
                         fontWeight: 600,
                         cssClass: 'apexcharts-xaxis-label',
@@ -281,14 +281,14 @@
                     text: 'جلسات',
                     style: {
                         color: "#8c9097",
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                     }
                 },
                 labels: {
                     show: true,
                     style: {
                         colors: "#8c9097",
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                         fontSize: '11px',
                         fontWeight: 600,
                         cssClass: 'apexcharts-yaxis-label',
@@ -300,15 +300,15 @@
                     text: 'بازدید',
                     style: {
                         color: "#8c9097",
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                     }
                 }
             }]
         };
         var el3 = document.querySelector("#analytics-mixed-chart");
-            if (el3) { 
+            if (el3) {
                 el3.innerHTML = '';
-                new ApexCharts(el3, options).render(); 
+                new ApexCharts(el3, options).render();
             }
         }
 

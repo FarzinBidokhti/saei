@@ -12,7 +12,7 @@
             chart: {
                 height: 320,
                 type: 'area',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
             },
             colors: ["#735dff"],
             dataLabels: {
@@ -20,12 +20,12 @@
             },
             stroke: {
                 curve: 'smooth',
-                width: 2,   
+                width: 2,
             },
             grid: {
                 borderColor: '#f2f5f7',
             },
-            
+
             xaxis: {
                 type: 'datetime',
                 categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
@@ -36,7 +36,7 @@
                         fontSize: '11px',
                         fontWeight: 600,
                         cssClass: 'apexcharts-xaxis-label',
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                     },
                 }
             },
@@ -99,7 +99,7 @@
             chart: {
                 height: 230,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 zoom: {
                     enabled: false
                 },
@@ -115,7 +115,7 @@
                 curve: 'smooth',
                 width: 3
             },
-            
+
             grid: {
                 borderColor: '#E7E7EA',
                 strokeDashArray: 4

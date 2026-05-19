@@ -16,7 +16,7 @@
             }],
             chart: {
                 type: 'bar',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 height: 320
             },
             plotOptions: {
@@ -106,7 +106,7 @@
             }],
             chart: {
                 height: 320,
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 type: 'bar',
             },
             grid: {

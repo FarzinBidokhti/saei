@@ -18,7 +18,7 @@
             chart: {
                 height: 290,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 zoom: {
                     enabled: false
                 },
@@ -34,7 +34,7 @@
                 curve: 'smooth',
                 width: 3
             },
-            
+
             grid: {
                 borderColor: '#E7E7EA',
                 strokeDashArray: 4
@@ -46,7 +46,7 @@
                     style: {
                         colors: "#939397",
                         fontSize: '12px',
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                         fontWeight: 500
                     }
                 },
@@ -65,7 +65,7 @@
                         colors: "#939397",
                         fontSize: '12px',
                         fontWeight: 500,
-                        fontFamily: "Peyda",
+                        fontFamily: "vazirmatn",
                     }
                 }
             },
@@ -75,7 +75,7 @@
                 horizontalAlign: 'center',
                 fontSize: '14px',
                 fontWeight: 500,
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 labels: {
                     colors: '#57575A'
                 }
@@ -102,7 +102,7 @@
             chart: {
                 width: 380,
                 type: 'donut',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
             },
             labels: ['تکنولوژی', 'هوش مصنوعی', 'کسب و کار', 'عکاسی', 'طراحی', 'بازاریابی', 'موسیقی'],
             colors: ['#306795', '#0DD9C8', '#e7508fff', '#FD8865', '#8073D8', '#d3661dff', '#FFBA13'],
@@ -124,7 +124,7 @@
                                 fontSize: '14px',
                                 fontWeight: 700,
                                 color: '#5F4AFE',
-                                fontFamily: "Peyda",
+                                fontFamily: "vazirmatn",
                                 formatter: function (w) {
                                     const sum = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
                                     return sum;
@@ -137,7 +137,7 @@
             legend: {
                 position: 'bottom',
                 fontSize: '13px',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 fontWeight: 500,
                 labels: { colors: '#8c9097' },
                 markers: { width: 10, height: 10, radius: 12 }
@@ -169,9 +169,9 @@
             chart.render();
         }
     });
-      
-      
-    
+
+
+
 
 
 }(jQuery));

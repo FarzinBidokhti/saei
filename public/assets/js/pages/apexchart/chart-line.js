@@ -3,7 +3,7 @@
         $(document).ready(function() {
         if (typeof ApexCharts === 'undefined') return;
 
-        
+
         /* basic line chart */
         var options = {
             series: [{
@@ -13,7 +13,7 @@
             chart: {
                 height: 320,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 zoom: {
                     enabled: false
                 }
@@ -82,7 +82,7 @@
             chart: {
                 height: 320,
                 type: 'line',
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 dropShadow: {
                     enabled: true,
                     color: '#000',
@@ -185,7 +185,7 @@
             chart: {
                 type: 'area',
                 stacked: false,
-                fontFamily: "Peyda",
+                fontFamily: "vazirmatn",
                 height: 320,
                 zoom: {
                     type: 'x',
@@ -286,7 +286,7 @@
         colors: ["#735dff"],
         chart: {
             height: 320,
-            fontFamily: "Peyda",
+            fontFamily: "vazirmatn",
             type: 'line',
             id: 'areachart-2'
         },
@@ -432,7 +432,7 @@
         }],
         chart: {
             type: 'line',
-            fontFamily: "Peyda",
+            fontFamily: "vazirmatn",
             height: 345
         },
         stroke: {
@@ -533,7 +533,7 @@
         chart: {
             id: 'dynamic-chart',
             height: 320,
-            fontFamily: "Peyda",
+            fontFamily: "vazirmatn",
             type: 'line',
             animations: {
                 enabled: true,
