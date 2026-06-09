@@ -31,7 +31,7 @@
     @include('partials.script')
     @livewireScripts
     @powerGridScripts
-    <script src="{{ asset('assets/js/swal11.js') }}"></script>
+    @include('sweetalert::alert')
     @stack('scripts')
 </body>
 
