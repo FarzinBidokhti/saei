@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleUserAssignForm extends Component
 {
@@ -30,6 +31,28 @@ class RoleUserAssignForm extends Component
 
         $this->selectedUser = User::find($value);
         $this->currentRole  = $this->selectedUser?->roles?->pluck('name')->first();
+    }
+
+    public function save()
+    {
+        $this->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'role_id' => ['required', 'exists:roles,id'],
+        ], [
+            'user_id.required' => 'انتخاب کاربر الزامی است.',
+            'user_id.exists'   => 'کاربر انتخاب‌ شده معتبر نیست.',
+            'role_id.required' => 'انتخاب نقش الزامی است.',
+            'role_id.exists'   => 'نقش انتخاب‌شده معتبر نیست.',
+        ]);
+
+        $user = User::findOrFail($this->user_id);
+        $role = Role::findOrFail($this->role_id);
+
+        $user->syncRoles([$role]);
+
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+
+        session()->flash('success', 'تخصیص نقش به کاربر با موفقیت انجام شد.');
     }
 
     public function render()

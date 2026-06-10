@@ -18,7 +18,7 @@ use App\Http\Controllers\Access\RolePermissionAssignController;
 Route::middleware(['auth', 'check.session'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->middleware('permission:view dashboard')->name('dashboard');
 
     Route::resource('users',                  UserController::class);
     Route::resource('defects',                DefectController::class);

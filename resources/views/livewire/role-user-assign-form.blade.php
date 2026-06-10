@@ -49,8 +49,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('role-user-assign.store') }}" method="post">
-                                    @csrf
+                                <form wire:submit="save">
                                     <div class="row gy-5">
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold" for="user_id">
@@ -140,11 +139,12 @@
                                                 <span class="text-danger">*</span>
                                             </label>
 
-                                            @error('role')
+                                            @error('role_id')
                                                 <div class="text-danger mb-3">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
+
 
                                             <div class="row gy-3">
                                                 @forelse($roles as $role)
@@ -154,7 +154,8 @@
                                                                 style="background-color: #C7D7FF">
                                                                 <input class="form-check-input" type="radio"
                                                                     name="role_id" id="role_{{ $role->id }}"
-                                                                    value="{{ $role->name }}">
+                                                                    value="{{ $role->id }}"
+                                                                    wire:model.live="role_id">
 
                                                                 <span class="form-check-label fw-semibold">
                                                                     {{ $role->name }}

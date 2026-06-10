@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\PermissionRegistrar;
-use App\Http\Requests\Access\RoleUserCreateRequest;
 
 class RoleUserAssignController extends Controller
 {
@@ -36,17 +35,9 @@ class RoleUserAssignController extends Controller
      *
      * Store a newly created resource in storage.
      */
-    public function store(RoleUserCreateRequest $request)
+    public function store(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
-        $role = Role::findOrFail($request->role_id);
-
-        $user->syncRoles([$role]);
-
-        app(PermissionRegistrar::class)->forgetCachedPermissions();
-
-        toast('نقش با موفقیت اعمال شد.', 'success');
-        return redirect()->route('role-user-assign.create');
+        //
     }
 
     /**

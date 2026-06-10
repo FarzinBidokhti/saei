@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Role;
-use App\Models\Permission;
 use Livewire\Component;
+use App\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 class RolePermissionAssignForm extends Component
