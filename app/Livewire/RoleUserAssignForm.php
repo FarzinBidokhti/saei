@@ -18,6 +18,8 @@ class RoleUserAssignForm extends Component
 
     public function mount()
     {
+        abort_unless(auth()->user()->can('assign roles to users'), 403);
+
         $this->users = User::get();
         $this->roles = Role::get();
     }
@@ -35,6 +37,8 @@ class RoleUserAssignForm extends Component
 
     public function save()
     {
+        abort_unless(auth()->user()->can('assign roles to users'), 403);
+
         $this->validate([
             'user_id' => ['required', 'exists:users,id'],
             'role_id' => ['required', 'exists:roles,id'],

@@ -61,31 +61,55 @@ return [
     |
     */
 
-    'providers' => [
-        // 'users' => [
-        //     'driver' => 'eloquent',
-        //     'model' => env('AUTH_MODEL', User::class),
-        // ],
+    // 'providers' => [
+    //     // 'users' => [
+    //     //     'driver' => 'eloquent',
+    //     //     'model' => env('AUTH_MODEL', User::class),
+    //     // ],
 
+    //     'users' => [
+    //         'driver' => 'ldap',
+    //         'model'  => LdapRecord\Models\ActiveDirectory\User::class,
+
+    //         'database'  => [
+    //             'model' => App\Models\User::class,
+    //             'sync_passwords'  => false,
+    //             'sync_attributes' => [
+    //                 'first_name'  => 'givenname',
+    //                 'last_name'   => 'sn',
+    //                 'username'    => 'samaccountname',
+    //                 'guid'        => 'objectguid',
+    //                 'domain'      => 'default'
+    //             ],
+    //         ],
+
+    //         'rules'  => [],
+    //         'scopes' => [],
+    //     ],
+
+    //     // 'users' => [
+    //     //     'driver' => 'database',
+    //     //     'table' => 'users',
+    //     // ],
+    // ],
+
+    'providers' => [
         'users' => [
             'driver' => 'ldap',
-            'model'  => LdapRecord\Models\ActiveDirectory\User::class,
-
-            'database'  => [
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [],
+            'scopes' => [],
+            'database' => [
                 'model' => App\Models\User::class,
-                'sync_passwords'  => false,
+                'sync_passwords' => false,
                 'sync_attributes' => [
-                    'name'     => 'cn',
-                    'email'    => 'mail',
-                    'username' => 'samaccountname',
+                    'first_name' => 'givenname',
+                    'last_name' => 'sn',
+                    'username' => 'samaccountname', // ستون محلی => ویژگی AD
+                    'guid' => 'objectguid',         // بسیار مهم
                 ],
             ],
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

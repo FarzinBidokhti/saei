@@ -12,6 +12,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        abort_unless(auth()->user()->can('view departments'), 403);
+
         return view('pages.department.index');
     }
 
@@ -20,7 +22,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        abort_unless(auth()->user()->can('create departments'), 403);
     }
 
     /**
@@ -28,7 +30,7 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_unless(auth()->user()->can('create departments'), 403);
     }
 
     /**
@@ -44,7 +46,7 @@ class DepartmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        abort_unless(auth()->user()->can('edit departments'), 403);
     }
 
     /**
@@ -60,6 +62,6 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        abort_unless(auth()->user()->can('delete departments'), 403);
     }
 }

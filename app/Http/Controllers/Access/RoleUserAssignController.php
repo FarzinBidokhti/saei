@@ -25,6 +25,8 @@ class RoleUserAssignController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->user()->can('assign roles to users'), 403);
+
         $users = User::get();
         $roles = Role::get();
 

@@ -18,6 +18,8 @@ class RolePermissionAssignForm extends Component
 
     public function mount(): void
     {
+        abort_unless(auth()->user()->can('assign permissions to roles'), 403);
+
         $this->roles = Role::query()
             ->select('id', 'name')
             ->orderBy('name')
@@ -64,6 +66,8 @@ class RolePermissionAssignForm extends Component
 
     public function save()
     {
+        abort_unless(auth()->user()->can('assign permissions to roles'), 403);
+
         $this->validate([
             'role_id' => ['required', 'exists:roles,id'],
             'selectedPermissions' => ['nullable', 'array'],

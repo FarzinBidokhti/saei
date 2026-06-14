@@ -13,6 +13,8 @@ class DefectRequestController extends Controller
      */
     public function index()
     {
+        abort_unless(auth()->user()->can('view defect requests'), 403);
+
         return view('pages.defectrequest.index');
     }
 
@@ -21,9 +23,9 @@ class DefectRequestController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
+        abort_unless(auth()->user()->can('create defect requests'), 403);
 
-        return view('pages.defectrequest.create', compact('departments'));
+        return view('pages.defectrequest.create');
     }
 
     /**

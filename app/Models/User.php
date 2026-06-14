@@ -6,13 +6,15 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, AuthenticatesWithLdap;
 
     /**
      * The attributes that are mass assignable.
@@ -23,9 +25,12 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'username',
+        'email',
         'password',
         'work_at',
         'is_active',
+        'guid',
+        'domain'
     ];
 
     /**
@@ -48,5 +53,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getLdapGuidColumn()
+    {
+        return 'guid';
+    }
+
+    public function getLdapDomainColumn()
+    {
+        return 'domain';
     }
 }

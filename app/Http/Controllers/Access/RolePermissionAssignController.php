@@ -23,6 +23,8 @@ class RolePermissionAssignController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->user()->can('assign permissions to roles'), 403);
+
         return view('pages.access.permission-assign.create');
     }
 
@@ -31,6 +33,8 @@ class RolePermissionAssignController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(auth()->user()->can('assign permissions to roles'), 403);
+
         $request->validate([
             'role_id'       => ['required', 'exists:roles,id'],
             'permissions'   => ['nullable', 'array'],

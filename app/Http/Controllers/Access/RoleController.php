@@ -15,6 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        abort_unless(auth()->user()->can('view roles'), 403);
+
         return view('pages.access.role.index');
     }
 
@@ -23,7 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        abort_unless(auth()->user()->can('create roles'), 403);
     }
 
     /**
@@ -31,7 +33,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_unless(auth()->user()->can('create roles'), 403);
     }
 
     /**
@@ -39,7 +41,7 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort_unless(auth()->user()->can('view roles'), 403);
     }
 
     /**
@@ -47,6 +49,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        abort_unless(auth()->user()->can('edit roles'), 403);
+
         return view('pages.access.role.edit', compact('role'));
     }
 
@@ -55,6 +59,8 @@ class RoleController extends Controller
      */
     public function update(EditRequest $request, Role $role)
     {
+        abort_unless(auth()->user()->can('edit roles'), 403);
+
         $role->name = strtolower($request->name);
         $role->save();
 
@@ -67,6 +73,6 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        abort_unless(auth()->user()->can('delete roles'), 403);
     }
 }

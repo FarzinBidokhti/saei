@@ -28,82 +28,42 @@ class LdapLoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (!$request->username || !$request->password) {
-            Alert::error('حطای ورود', 'نام کاربری و کلمه عبور الزامی می باشد.');
-            return back();
-        }
-
-        $agent      = new Agent();
         $username   = $request->username;
         $password   = $request->password;
+        $agent      = new Agent();
+        $deviceType = $this->getDeviceType($agent);
         $ldapUser   = LdapUser::where('samaccountname', '=', $username)->first();
-        $deviceType = 'desktop';
 
-        if ($agent->isTablet()) {
-            $deviceType = 'tablet';
-        } elseif ($agent->isMobile()) {
-            $deviceType = 'mobile';
-        }
+        if ($ldapUser) {
+            if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
+                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.');
+                Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
+                return back()->withInput();
+            }
 
-        if (!$ldapUser) {
-            LoginLog::create([
-                'username'   => $username,
-                'ip_address' => $request->ip(),
-                'device_type' => $deviceType,
-                'browser'     => $agent->browser(),
-                'os'          => $agent->platform(),
-                'login_at'   => now(),
-                'status'     => 0,
-                'description' => 'نام کاربری یافت نشد.'
-            ]);
+            $user = User::where('username', $username)->first();
+            if (!$user) {
+                $user = User::create([
+                    'first_name' => $ldapUser->getFirstAttribute('givenname') ?? '',
+                    'last_name'  => $ldapUser->getFirstAttribute('sn') ?? '',
+                    'username'   => $username,
+                    'work_at'    => 'default',
+                    'is_active'  => 1,
+                    'guid'       => $ldapUser->getConvertedGuid(),
+                ]);
+            }
+        } else {
+            $user = User::where('username', $username)->whereNull('guid')->first();
 
-            Alert::error('خطای ورود', 'نام کاربری یافت نشد.');
-            return back()->withInput();
-        }
-
-        if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
-            LoginLog::create([
-
-                'username'    => $username,
-                'session_id'  => session()->getId(),
-                'ip_address'  => $request->ip(),
-                'device_type' => $deviceType,
-                'browser'     => $agent->browser(),
-                'os'          => $agent->platform(),
-                'login_at'    => now(),
-                'status'      => 0,
-                'description' => 'نام کاربری یا کلمه عبور اشتباه است.',
-            ]);
-
-            Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
-            return back()->withInput();
-        }
-
-        $user = User::where('username', $username)->first();
-
-        if (!$user) {
-            $user = User::create([
-                'first_name' => $ldapUser->getFirstAttribute('givenname') ?? '',
-                'last_name'  => $ldapUser->getFirstAttribute('sn') ?? '',
-                'username'   => $username,
-                'work_at'    => 'default',
-                'is_active'  => 1,
-            ]);
+            if (!$user || !\Hash::check($password, $user->password)) {
+                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یافت نشد یا رمز عبور اشتباه است.');
+                Alert::error('خطای ورود', 'اطلاعات ورود صحیح نمی‌باشد.');
+                return back()->withInput();
+            }
         }
 
         if (!$user->is_active) {
-            LoginLog::create([
-                'user_id'     => $user->id,
-                'username'    => $username,
-                'session_id'  => session()->getId(),
-                'ip_address'  => $request->ip(),
-                'device_type' => $deviceType,
-                'browser'     => $agent->browser(),
-                'os'          => $agent->platform(),
-                'status'      => 0,
-                'description' => 'حساب کاربری شما فعال نمی باشد.',
-            ]);
-
+            $this->logLoginFailure($username, $deviceType, $agent, 'حساب کاربری شما فعال نمی باشد.', $user->id);
             Alert::error('خطای دسترسی', 'حساب کاربری شما فعال نمی باشد.');
             return back();
         }
@@ -121,22 +81,51 @@ class LdapLoginController extends Controller
         }
 
         Auth::login($user);
+        $this->logLoginSuccess($user, $deviceType, $agent);
 
+        Alert::success('ورود موفق', 'شما با موفقیت وارد سامانه شده اید.');
+        return redirect()->route('dashboard');
+    }
+
+    private function logLoginFailure($username, $deviceType, $agent, $desc, $userId = null)
+    {
+        LoginLog::create([
+            'user_id'     => $userId,
+            'username'    => $username,
+            'ip_address'  => request()->ip(),
+            'device_type' => $deviceType,
+            'browser'     => $agent->browser(),
+            'os'          => $agent->platform(),
+            'login_at'    => now(),
+            'status'      => 0,
+            'description' => $desc,
+            'session_id'  => session()->getId(),
+        ]);
+    }
+
+    private function logLoginSuccess($user, $deviceType, $agent)
+    {
         LoginLog::create([
             'user_id'     => $user->id,
-            'username'    => $username,
+            'username'    => $user->username,
             'session_id'  => session()->getId(),
-            'ip_address'  => $request->ip(),
+            'ip_address'  => request()->ip(),
             'device_type' => $deviceType,
             'browser'     => $agent->browser(),
             'os'          => $agent->platform(),
             'login_at'    => now(),
             'status'      => 1,
         ]);
+    }
 
-        Alert::success('ورود موفق', 'شما با موفقیت وارد سامانه شده اید.');
-
-        return redirect()->route('dashboard');
+    private function getDeviceType($agent)
+    {
+        if ($agent->isTablet()) {
+            return 'tablet';
+        } elseif ($agent->isMobile()) {
+            return 'mobile';
+        }
+        return 'desktop';
     }
 
     public function destroy(Request $request)

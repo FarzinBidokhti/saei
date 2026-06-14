@@ -16,6 +16,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        abort_unless(auth()->user()->can('view permissions'), 403);
+
         return view('pages.access.permission.index');
     }
 
@@ -24,6 +26,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->user()->can('create permissions'), 403);
+
         return view(('pages.access.permission.create'));
     }
 
@@ -32,6 +36,8 @@ class PermissionController extends Controller
      */
     public function store(CreateRequest $request)
     {
+        abort_unless(auth()->user()->can('create permissions'), 403);
+
         $permission             = new Permission();
         $permission->name       = $request->name;
         $permission->guard_name = $request->guard_name;
@@ -46,7 +52,7 @@ class PermissionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort_unless(auth()->user()->can('view permissions'), 403);
     }
 
     /**
@@ -54,6 +60,8 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        abort_unless(auth()->user()->can('edit permissions'), 403);
+
         return view('pages.access.permission.edit', compact('permission'));
     }
 
@@ -62,6 +70,8 @@ class PermissionController extends Controller
      */
     public function update(EditRequest $request, Permission $permission)
     {
+        abort_unless(auth()->user()->can('edit permissions'), 403);
+
         $permission->name = strtolower($request->name);
         $permission->save();
 

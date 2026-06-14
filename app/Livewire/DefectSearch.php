@@ -23,11 +23,15 @@ class DefectSearch extends Component
 
     public function mount()
     {
+        abort_unless(auth()->user()->can('create defect requests'), 403);
+
         $this->departments = Department::get();
     }
 
     public function search()
     {
+        abort_unless(auth()->user()->can('create defect requests'), 403);
+
         $this->reset(['defect', 'subDefect', 'errorMessage']);
 
         if (!$this->defect_code || !$this->department_id) {
@@ -73,10 +77,12 @@ class DefectSearch extends Component
 
     public function submitRequest($processId, $sectionId)
     {
+        abort_unless(auth()->user()->can('create defect requests'), 403);
+
         $requestId = time() . random_int(10000, 99999);
 
         DefectRequest::create([
-            'user_id'           => 1,
+            'user_id'           => auth()->id(),
             'defect_request_id' => $requestId,
             'section_id'        => $sectionId,
             'defect_id'         => $this->defect->id,
