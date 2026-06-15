@@ -15,7 +15,9 @@ class DefectRequest extends Model
         'section_id',
         'defect_id',
         'sub_defect_id',
-        'process_id'
+        'reason_text',
+        'process_id',
+        'type'
     ];
 
     public function user()

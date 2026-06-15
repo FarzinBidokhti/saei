@@ -23,7 +23,7 @@
                 <div class="demo-card-body-content">
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="department_id">
-                            دپارتمان
+                            ایستگاه کاری
                             <span class="text-danger">*</span>
                         </label>
 
@@ -94,7 +94,14 @@
                                 <th>بخش</th>
                                 <th>تجهیز</th>
                                 <th>علت</th>
-                                <th></th>
+                                <th>
+                                    @if ($defect && $subDefect && $processes && $processes->count())
+                                        <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal"
+                                            data-bs-target="#manualRequestModal">
+                                            ثبت علت دستی
+                                        </button>
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,6 +132,90 @@
                     برای این زیرعیب در دپارتمان انتخاب‌شده، داده‌ای یافت نشد.
                 </div>
             @endif
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="manualRequestModal" tabindex="-1"
+        aria-labelledby="manualRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manualRequestModalLabel">
+                        ثبت دستی علت
+                    </h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                انتخاب تجهیز/فرآیند
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select class="form-select" wire:model="manual_process_id">
+                                <option value="">انتخاب کنید...</option>
+
+                                @if ($processes && $processes->count())
+                                    @foreach ($processes as $process)
+                                        <option value="{{ $process->id }}">
+                                            {{ $process->equipment ?? 'بدون نام تجهیز' }}
+                                            -
+                                            {{ $process->reason ?? 'بدون علت' }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+
+                            @error('manual_process_id')
+                                <div class="text-danger small mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                متن علت
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <textarea class="form-control" rows="4" maxlength="250" wire:model.defer="reason_text"
+                                placeholder="علت موردنظر را وارد کنید..."></textarea>
+
+                            <div class="form-text">
+                                حداکثر ۲۵۰ کاراکتر
+                            </div>
+
+                            @error('reason_text')
+                                <div class="text-danger small mt-1">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        انصراف
+                    </button>
+
+                    <button type="button" class="btn btn-primary" wire:click="submitManualRequest"
+                        wire:loading.attr="disabled" wire:target="submitManualRequest">
+                        <span wire:loading.remove wire:target="submitManualRequest">
+                            ثبت
+                        </span>
+
+                        <span wire:loading wire:target="submitManualRequest">
+                            در حال ثبت...
+                        </span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

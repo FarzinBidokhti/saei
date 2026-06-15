@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    ساعی | ثبت عیب جدید
+    ساعی | جستجو عیب
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="page-header pb-7">
                 <h2 class="fw-semibold fs-7">
-                    ثبت عیب جدید
+                    جستجو عیب
                 </h2>
             </div>
 
@@ -22,7 +22,7 @@
                                     <div
                                         class="demo-card-header d-flex align-items-center justify-content-between px-6 py-5">
                                         <h3 class="demo-card-title m-0">
-                                            ثبت عیب جدید
+                                            جستجو عیب
                                         </h3>
                                     </div>
 
