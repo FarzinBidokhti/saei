@@ -81,14 +81,14 @@ class DefectSearch extends Component
 
         $requestId = time() . random_int(10000, 99999);
 
-        // DefectRequest::create([
-        //     'user_id'           => auth()->id(),
-        //     'defect_request_id' => $requestId,
-        //     'section_id'        => $sectionId,
-        //     'defect_id'         => $this->defect->id,
-        //     'sub_defect_id'     => $this->subDefect->id,
-        //     'process_id'        => $processId,
-        // ]);
+        DefectRequest::create([
+            'user_id'           => auth()->id(),
+            'defect_request_id' => $requestId,
+            'section_id'        => $sectionId,
+            'defect_id'         => $this->defect->id,
+            'sub_defect_id'     => $this->subDefect->id,
+            'process_id'        => $processId,
+        ]);
 
         $this->dispatch('swal-success', id: $requestId);
     }

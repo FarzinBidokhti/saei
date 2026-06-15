@@ -85,7 +85,7 @@ class RolePermissionAssignForm extends Component
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        session()->flash('success', 'مجوزها با موفقیت به نقش اختصاص داده شدند.');
+        $this->dispatch('swal-success');
     }
 
     public function render()

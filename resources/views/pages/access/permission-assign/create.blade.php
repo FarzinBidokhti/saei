@@ -102,3 +102,24 @@
         }
     </style>
 @endpush
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('swal-success', (event) => {
+                Swal.fire({
+                    title: 'ثبت موفق',
+                    text: 'مجوزها با موفقیت به نقش تخصیص داده شد.',
+                    icon: 'success',
+                    confirmButtonText: 'تایید'
+                }).then((result) => {
+                    if (event.url) {
+                        window.location.href = event.url;
+                    } else {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

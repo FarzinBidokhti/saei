@@ -1,10 +1,4 @@
 <div>
-    @if (session('success'))
-        <div class="alert alert-success mb-4" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form wire:submit="save">
         <div class="col-md-3 mb-5">
             <div class="mb-3">
