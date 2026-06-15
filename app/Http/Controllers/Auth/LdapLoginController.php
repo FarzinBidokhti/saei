@@ -51,6 +51,8 @@ class LdapLoginController extends Controller
                     'is_active'  => 1,
                     'guid'       => $ldapUser->getConvertedGuid(),
                 ]);
+
+                $user->assignRole('operator');
             }
         } else {
             $user = User::where('username', $username)->whereNull('guid')->first();
