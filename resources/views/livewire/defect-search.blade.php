@@ -94,8 +94,7 @@
                                 <th>بخش</th>
                                 <th>تجهیز</th>
                                 <th>علت</th>
-                                <th>درصد</th>
-                                <th>سنسوردار</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,25 +104,15 @@
                                     <td>{{ $item->section->title ?? '-' }}</td>
                                     <td>{{ $item->equipment ?? '-' }}</td>
                                     <td>{{ $item->reason ?? '-' }}</td>
-                                    <td>{{ $item->percent ?? '-' }}</td>
                                     <td>
-                                        @if (!is_null($item->is_sensor))
-                                            {!! $item->is_sensor
-                                                ? '<span class="badge badge-success">بله</span>'
-                                                : '<span class="badge badge-danger">خیر</span>' !!}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <button class="btn gap-2 btn-sm btn-primary" type="button"
+                                        <button class="btn gap-2 btn-sm btn-success" type="button"
                                             wire:click="submitRequest({{ $item->id }}, {{ $item->section_id }})">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                 fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                                 <path
                                                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                                             </svg>
-                                            ثبت درخواست
+                                            ثبت
                                         </button>
                                     </td>
                                 </tr>
@@ -142,14 +131,20 @@
 
 @push('scripts')
     <script>
-        window.addEventListener('swal-success', event => {
-            Swal.fire({
-                title: 'ثبت موفق',
-                html: 'درخواست عیب با موفقیت ثبت گردید.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = "{{ route('defectrequests.create') }}";
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('swal-success', (event) => {
+                Swal.fire({
+                    title: 'ثبت موفق',
+                    text: 'عملیات با موفقیت انجام شد',
+                    icon: 'success',
+                    confirmButtonText: 'تایید'
+                }).then((result) => {
+                    if (event.url) {
+                        window.location.href = event.url;
+                    } else {
+                        window.location.reload();
+                    }
+                });
             });
         });
     </script>

@@ -7,3 +7,7 @@ import { Persian } from "flatpickr-jalali-support/dist/l10n/fa.js";
 flatpickr.localize(Persian);
 
 import "flatpickr-jalali-support/dist/flatpickr.min.css";
+
+import Swal from "sweetalert2";
+
+window.Swal = Swal;
