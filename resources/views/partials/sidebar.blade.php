@@ -24,19 +24,13 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('dashboard') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg fill="none" height="17" viewBox="0 0 17 17" width="17"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.5"
-                                        width="6.00021" x="0.75" y="0.75"></rect>
-                                    <rect height="4.5" rx="1.5" stroke="currentColor" stroke-width="1.5"
-                                        width="6.00021" x="0.75" y="11.2499"></rect>
-                                    <rect height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.5"
-                                        width="6.00021" x="9.74976" y="8.25"></rect>
-                                    <rect height="4.5" rx="1.5" stroke="currentColor" stroke-width="1.5"
-                                        width="6.00021" x="9.74976" y="0.75"></rect>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 داشبورد
                             </span>
                         </a>
@@ -47,13 +41,15 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('defects.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
-                                    class="bi bi-bounding-box" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
                                     <path
-                                        d="M5 2V0H0v5h2v6H0v5h5v-2h6v2h5v-5h-2V5h2V0h-5v2zm6 1v2h2v6h-2v2H5v-2H3V5h2V3zm1-2h3v3h-3zm3 11v3h-3v-3zM4 15H1v-3h3zM1 4V1h3v3z" />
+                                        d="M7.938 2.016a.13.13 0 0 1 .125 0l6.857 11.856c.03.052.03.114 0 .166a.145.145 0 0 1-.125.07H1.205a.145.145 0 0 1-.125-.07.162.162 0 0 1 0-.166L7.938 2.016zM8 1a1.13 1.13 0 0 0-.98.573L.165 13.429C-.282 14.203.275 15.17 1.205 15.17h13.59c.93 0 1.487-.967 1.04-1.741L8.98 1.573A1.13 1.13 0 0 0 8 1z" />
+                                    <path
+                                        d="M7.002 12a1 1 0 1 1 1.996 0 1 1 0 0 1-1.996 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 عیوب
                             </span>
                         </a>
@@ -64,13 +60,13 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('subdefects.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
-                                    class="bi bi-bounding-box" viewBox="0 0 16 16">
-                                    <path
-                                        d="M5 2V0H0v5h2v6H0v5h5v-2h6v2h5v-5h-2V5h2V0h-5v2zm6 1v2h2v6h-2v2H5v-2H3V5h2V3zm1-2h3v3h-3zm3 11v3h-3v-3zM4 15H1v-3h3zM1 4V1h3v3z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6H8v1h4.5A1.5 1.5 0 0 1 14 8.5V10h.5A1.5 1.5 0 0 1 16 11.5v1a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 12 12.5v-1a1.5 1.5 0 0 1 1-1.415V8.5a.5.5 0 0 0-.5-.5H8v2h.5A1.5 1.5 0 0 1 10 11.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1A1.5 1.5 0 0 1 7 10.085V8H3.5a.5.5 0 0 0-.5.5v1.585A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1A1.5 1.5 0 0 1 1 10.085V8.5A1.5 1.5 0 0 1 2.5 7H7V6h-.5A1.5 1.5 0 0 1 6 4.5v-1zM7.5 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 زیرعیوب
                             </span>
                         </a>
@@ -81,13 +77,17 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('departments.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
-                                    class="bi bi-border-width" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
                                     <path
-                                        d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5" />
+                                        d="M2 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5A1.5 1.5 0 0 1 7.5 11H8a.5.5 0 0 1 0 1h-.5a.5.5 0 0 0-.5.5V15h1a.5.5 0 0 1 0 1H2a.5.5 0 0 1 0-1V1z" />
+                                    <path
+                                        d="M4.5 2.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm-3 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm-3 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                                    <path
+                                        d="M11.886 9.46c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.305 1.175.309.87.87l-.074.136a.64.64 0 0 0 .382.921l.149.043c.612.18.612 1.048 0 1.229l-.149.043a.64.64 0 0 0-.382.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.074a.64.64 0 0 0-.921.382l-.043.149c-.18.612-1.048.612-1.229 0l-.043-.149a.64.64 0 0 0-.921-.382l-.136.074c-.561.305-1.175-.309-.87-.87l.074-.136a.64.64 0 0 0-.382-.921l-.148-.043c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.305-.561.309-1.175.87-.87l.136.074a.64.64 0 0 0 .921-.382l.043-.148zM12.5 11a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 لیست ایستگاه های کاری
                             </span>
                         </a>
@@ -98,13 +98,17 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('defectrequests.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor"
-                                    class="bi bi-boxes" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                     <path
-                                        d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                    <path
+                                        d="M9.5 1a.5.5 0 0 1 .5.5v1A1.5 1.5 0 0 1 8.5 4h-1A1.5 1.5 0 0 1 6 2.5v-1A.5.5 0 0 1 6.5 1h3zM7 2v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V2H7z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 لیست عیوب ثبت شده
                             </span>
                         </a>
@@ -115,13 +119,13 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('defectrequests.create') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
                                     <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 جستجو عیب
                             </span>
                         </a>
@@ -132,15 +136,15 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('roles.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                    fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
                                     <path
-                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                        d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                     <path
-                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        d="M4.5 0A2.5 2.5 0 0 0 2 2.5v11A2.5 2.5 0 0 0 4.5 16h7a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-11z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 نقش ها
                             </span>
                         </a>
@@ -151,15 +155,14 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('permissions.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                    fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" viewBox="0 0 16 16">
                                     <path
-                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                                    <path
-                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        d="M0 8a4 4 0 0 1 7.465-2H15a1 1 0 0 1 .707.293l.854.854a.5.5 0 0 1 0 .707l-1.647 1.647a.5.5 0 0 1-.708 0L13.5 8.793l-.793.793a.5.5 0 0 1-.707 0L11.207 8.793l-.793.793A.5.5 0 0 1 10 9.75H7.465A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.277A.5.5 0 0 1 7.163 9h2.63l1.146-1.146a.5.5 0 0 1 .708 0l.793.793.793-.793a.5.5 0 0 1 .707 0l.707.707.94-.94L14.793 7H7.163a.5.5 0 0 1-.451-.277A2.988 2.988 0 0 0 4 5z" />
+                                    <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 مجوزها
                             </span>
                         </a>
@@ -170,15 +173,15 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('role-user-assign.create') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                    fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" viewBox="0 0 16 16">
                                     <path
-                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM4 9a4 4 0 0 0-4 4v1a1 1 0 0 0 1 1h8.256A5.474 5.474 0 0 1 8 12.5c0-1.106.328-2.135.893-3H4z" />
                                     <path
-                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 تخصیص نقش به کاربر
                             </span>
                         </a>
@@ -190,15 +193,15 @@
                         <a class="menu-link d-flex align-items-center"
                             href="{{ route('role-permission-assign.create') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
-                                    fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" viewBox="0 0 16 16">
                                     <path
-                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                        d="M5.338 1.59 8 0l2.662 1.59c.407.244.853.395 1.327.447l2.011.224v4.032c0 4.123-2.58 7.82-6 9.25-3.42-1.43-6-5.127-6-9.25V2.261l2.011-.224a3.99 3.99 0 0 0 1.327-.447zM8 1.173 5.852 2.456a4.99 4.99 0 0 1-1.73.582L3 3.162v3.131c0 3.664 2.287 6.921 5 8.2 2.713-1.279 5-4.536 5-8.2V3.162l-1.122-.124a4.99 4.99 0 0 1-1.73-.582L8 1.173z" />
                                     <path
-                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        d="M8 4a.5.5 0 0 1 .5.5V7H11a.5.5 0 0 1 0 1H8.5v2.5a.5.5 0 0 1-1 0V8H5a.5.5 0 0 1 0-1h2.5V4.5A.5.5 0 0 1 8 4z" />
                                 </svg>
                             </span>
-                            <span class="menu-title flex-grow-1">
+                            <span class="menu-title flex-grow-1 pe-2">
                                 تخصیص مجوزها به نقش
                             </span>
                         </a>
@@ -210,9 +213,13 @@
                         <a class="menu-link d-flex align-items-center" href="{{ route('login-log') }}">
                             <span class="menu-icon flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
+                                    fill="currentColor" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.515 1.019A7 7 0 1 1 1.05 9.67.5.5 0 1 1 2.022 9.43A6 6 0 1 0 8.515 2.02a.5.5 0 0 1 0-1z" />
+                                    <path
+                                        d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                                    <path
+                                        d="M3.5 2a.5.5 0 0 1 .5.5V5h2.5a.5.5 0 0 1 0 1H3.5A.5.5 0 0 1 3 5.5v-3a.5.5 0 0 1 .5-.5z" />
                                 </svg>
                             </span>
                             <span class="menu-title flex-grow-1 pe-2">

@@ -23,6 +23,15 @@
         <div class="col-xl-8 col-lg-7 col-md-6 col-sm-8 col-9">
             <ul class="navbar-nav flex-row align-items-center justify-content-end">
                 <li class="header-nav-item header-user me-2">
+                    <div class="col-md-12">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="btn btn-sm btn-danger ps-5 fs-3" type="submit">خروج</button>
+                        </form>
+                    </div>
+                </li>
+
+                <li class="header-nav-item header-user me-5 mt-3">
                     <a class="header-nav-link" data-bs-toggle="dropdown" href="javascript:void(0);">
                         <img alt="" class="rounded-circle" height="34"
                             src="{{ asset('assets/img/avatar/10.jpg') }}" width="34" />
@@ -48,7 +57,8 @@
                         <div class="dropdown-body py-1">
                             <ul class="list-unstyled dropdown-list">
                                 <li>
-                                    <span class="dropdown-item fz-14px d-flex align-items-center gap-2 px-5 text-danger">
+                                    <span
+                                        class="dropdown-item fz-14px d-flex align-items-center gap-2 px-5 text-danger">
                                         <svg fill="none" height="17" viewbox="0 0 17 17" width="17"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
