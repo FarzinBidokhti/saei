@@ -20,13 +20,24 @@ class RolePermissionAssignForm extends Component
     {
         abort_unless(auth()->user()->can('assign permissions to roles'), 403);
 
+        $user        = auth()->user();
+        $userRoleIds = $user->roles()->pluck('id')->toArray();
+
         $this->roles = Role::query()
-            ->select('id', 'name')
-            ->orderBy('name')
+            ->select('id', 'name', 'role_id')
+            ->where(function ($query) use ($userRoleIds) {
+                $query->whereNull('role_id')
+                    ->orWhereIn('role_id', $userRoleIds);
+            })
+            ->orderBy('id')
             ->get();
 
         $this->permissions = Permission::query()
-            ->select('id', 'name', 'label')
+            ->select('id', 'name', 'label', 'role_id')
+            ->where(function ($query) use ($userRoleIds) {
+                $query->whereNull('role_id')
+                    ->orWhereIn('role_id', $userRoleIds);
+            })
             ->orderBy('id')
             ->get();
     }

@@ -11,4 +11,9 @@ class Permission extends SpatiePermission
         'label',
         'guard_name',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
