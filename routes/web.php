@@ -34,10 +34,8 @@ Route::middleware(['auth', 'check.session'])->group(function () {
     permissionResource('subdefects',     SubDefectController::class, 'subdefects');
     permissionResource('departments',    DepartmentController::class, 'departments');
     permissionResource('defectrequests', DefectRequestController::class, 'defect requests');
-    // =-=-=-=-=
     permissionResource('roles',          RoleController::class, 'roles');
     permissionResource('permissions',    PermissionController::class, 'permissions');
-    // =-=-=-=-=
 
     Route::resource('role-user-assign',       RoleUserAssignController::class)->middleware('permission:assign roles to users');
     Route::resource('role-permission-assign', RolePermissionAssignController::class)->middleware('permission:assign permissions to roles');

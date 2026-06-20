@@ -27,7 +27,6 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'work_at',
         'is_active',
         'guid',
         'domain'
@@ -63,5 +62,17 @@ class User extends Authenticatable
     public function getLdapDomainColumn()
     {
         return 'domain';
+    }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class)
+            ->withPivot(['id', 'created_by'])
+            ->withTimestamps();;
+    }
+
+    public function loginLogs()
+    {
+        return $this->hasMany(LoginLog::class);
     }
 }

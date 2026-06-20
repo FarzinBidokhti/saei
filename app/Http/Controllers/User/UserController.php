@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\User\CreateRequest;
+use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -53,50 +55,76 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         abort_unless(auth()->user()->can('view users'), 403);
+
+        $user->load('departments');
+
+        $createdByUserIds = $user->departments
+            ->pluck('pivot.created_by')
+            ->filter()
+            ->unique();
+
+        $departmentCreators = User::query()
+            ->whereIn('id', $createdByUserIds)
+            ->get()
+            ->keyBy('id');
+
+        $loginLogs = $user->loginLogs()
+            ->where(function ($query) {
+                $query->where('login_at', '>=', now()->subDays(7))
+                    ->orWhere('logout_at', '>=', now()->subDays(7));
+            })
+            ->latest('login_at')
+            ->paginate(10, ['*'], 'logs_page');
+
+        return view('pages.user.show', compact(['user', 'loginLogs', 'departmentCreators']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
         abort_unless(auth()->user()->can('edit users'), 403);
+
+        $departments = Department::query()->get();
+        $userDepartmentIds = $user->departments()
+            ->pluck('departments.id')
+            ->toArray();
+
+        return view('pages.user.edit', compact('user', 'departments', 'userDepartmentIds'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, User $user)
     {
         abort_unless(auth()->user()->can('edit users'), 403);
 
-        $user = User::findOrFail($id);
+        $validated = $request->validated();
 
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name'  => ['required', 'string', 'max:255'],
-            'username'   => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id],
-            'work_at'    => ['nullable', 'string', 'max:255'],
-            'password'   => ['nullable', 'string', 'min:6'],
+        $user->update([
+            'first_name' => $validated['first_name'],
+            'last_name'  => $validated['last_name'],
+            'is_active'  => $validated['is_active'],
         ]);
 
-        $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->username   = $request->username;
-        $user->work_at    = $request->work_at;
+        $syncData = collect($validated['departments'] ?? [])
+            ->mapWithKeys(function ($departmentId) {
+                return [
+                    $departmentId => [
+                        'created_by' => auth()->id(),
+                    ],
+                ];
+            })
+            ->toArray();
 
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
+        $user->departments()->sync($syncData);
 
-        $user->save();
-
-        Alert::success('موفق', 'کاربر با موفقیت ویرایش شد');
-
-        return redirect()->route('users.index');
+        return redirect()->route('users.edit', $user->id);
     }
 
     /**

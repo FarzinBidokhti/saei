@@ -3,19 +3,16 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Termwind\Components\Span;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
-use PowerComponents\LivewirePowerGrid\Facades\Filter;
-use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 
 final class UserTable extends PowerGridComponent
 {
-    public string $tableName = 'userTable';
+    public string $tableName = 'users';
 
     public function setUp(): array
     {
@@ -47,12 +44,11 @@ final class UserTable extends PowerGridComponent
             ->add('username')
             ->add(
                 'is_active_label',
-                fn(User $u) => $u->is_active ?
-                    '<span class="badge badge-label-success py-2" style="position: inherit">فعال</span>' :
-                    '<span class="badge badge-label-danger py-2" style="position: inherit">غیرفعال</span>'
+                fn(User $u) => $u->is_active
+                    ? '<span class="badge badge-label-success py-2" style="position: inherit">فعال</span>'
+                    : '<span class="badge badge-label-danger py-2" style="position: inherit">غیرفعال</span>'
             )
-            ->add('work_at')
-            ->add('created_at_convert', fn(User $user) => verta($user->created_at));
+            ->add('created_at_convert', fn(User $user) => verta($user->created_at)->format('Y/m/d'));
     }
 
     public function columns(): array
@@ -64,8 +60,23 @@ final class UserTable extends PowerGridComponent
             Column::make('نام کاربری', 'username')->sortable()->searchable(),
             Column::make('فعال/غیرفعال', 'is_active_label')
                 ->contentClassField('is_active_class'),
-            Column::make('محل کار', 'work_at')->sortable()->searchable(),
-            Column::make('تاریخ ایجاد', 'created_at_convert')->sortable()->searchable()
+            Column::make('تاریخ ثبت نام', 'created_at_convert')->sortable()->searchable(),
+            Column::action('عملیات'),
+        ];
+    }
+
+    public function actions(User $row): array
+    {
+        return [
+            Button::add('show')
+                ->slot('نمایش')
+                ->class('btn btn-sm btn-primary me-1')
+                ->route('users.show', ['user' => $row->id]),
+
+            Button::add('edit')
+                ->slot('ویرایش')
+                ->class('btn btn-sm btn-warning')
+                ->route('users.edit', ['user' => $row->id]),
         ];
     }
 
