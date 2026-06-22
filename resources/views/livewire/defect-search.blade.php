@@ -59,55 +59,26 @@
                 </div>
             @endif
 
-            @if ($defect && $subDefect)
-                <div class="table-responsive mt-4">
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>ردیف</th>
-                                <th>کد عیب</th>
-                                <th>عنوان عیب</th>
-                                <th>کد زیرعیب</th>
-                                <th>عنوان زیرعیب</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>{{ $defect->code }}</td>
-                                <td>{{ $defect->title ?? '-' }}</td>
-                                <td>{{ $subDefect->code ?? '-' }}</td>
-                                <td>{{ $subDefect->title ?? '-' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-
             @if ($processes && count($processes) > 0)
                 <div class="table-responsive mt-4">
                     <table class="table table-bordered table-striped align-middle">
                         <thead>
                             <tr>
                                 <th>ردیف</th>
+                                <th>نام عیب</th>
+                                <th>نام زیر عیب</th>
                                 <th>بخش</th>
                                 <th>تجهیز</th>
                                 <th>علت</th>
-                                <th>
-                                    @if ($defect && $subDefect && $processes && $processes->count())
-                                        <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#manualRequestModal">
-                                            ثبت علت دستی
-                                        </button>
-                                    @endif
-                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($processes as $index => $item)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
+                                    <td>{{ $defect->title ?? '-' }}</td>
+                                    <td>{{ $subDefect->title ?? '-' }}</td>
                                     <td>{{ $item->section->title ?? '-' }}</td>
                                     <td>{{ $item->equipment ?? '-' }}</td>
                                     <td>{{ $item->reason ?? '-' }}</td>
@@ -126,10 +97,24 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    @if ($defect && $subDefect && $processes && $processes->count())
+                        <div class="d-grid mt-3">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#manualRequestModal">
+                                ثبت علت دستی
+                            </button>
+                        </div>
+                    @endif
                 </div>
             @elseif($defect && $subDefect)
-                <div class="alert alert-warning mt-4">
-                    برای این زیرعیب در دپارتمان انتخاب‌شده، داده‌ای یافت نشد.
+                <div class="alert alert-warning mt-4 d-flex justify-content-between align-items-center">
+                    <span>برای این زیرعیب در دپارتمان انتخاب‌شده، داده‌ای یافت نشد.</span>
+
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#manualRequestModal">
+                        ثبت علت دستی
+                    </button>
                 </div>
             @endif
         </div>
@@ -150,34 +135,7 @@
 
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">
-                                انتخاب تجهیز/فرآیند
-                                <span class="text-danger">*</span>
-                            </label>
-
-                            <select class="form-select" wire:model="manual_process_id">
-                                <option value="">انتخاب کنید...</option>
-
-                                @if ($processes && $processes->count())
-                                    @foreach ($processes as $process)
-                                        <option value="{{ $process->id }}">
-                                            {{ $process->equipment ?? 'بدون نام تجهیز' }}
-                                            -
-                                            {{ $process->reason ?? 'بدون علت' }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-
-                            @error('manual_process_id')
-                                <div class="text-danger small mt-1">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label">
                                 متن علت
                                 <span class="text-danger">*</span>

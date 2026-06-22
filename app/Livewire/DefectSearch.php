@@ -102,13 +102,10 @@ class DefectSearch extends Component
         abort_unless(auth()->user()->can('create defect requests'), 403);
 
         $this->validate([
-            'manual_process_id' => ['required', 'integer', 'exists:processes,id'],
-            'reason_text'       => ['required', 'string', 'max:250'],
+            'reason_text' => ['required', 'string', 'max:250'],
         ], [
-            'manual_process_id.required' => 'لطفا تجهیز را انتخاب کنید.',
-            'manual_process_id.exists'   => 'فرآیند انتخاب‌شده معتبر نیست.',
-            'reason_text.required'       => 'لطفا متن علت را وارد کنید.',
-            'reason_text.max'            => 'متن علت نباید بیشتر از ۲۵۰ کاراکتر باشد.',
+            'reason_text.required' => 'لطفا متن علت را وارد کنید.',
+            'reason_text.max'      => 'متن علت نباید بیشتر از ۲۵۰ کاراکتر باشد.',
         ]);
 
         $process = Process::where('id', $this->manual_process_id)
@@ -116,20 +113,15 @@ class DefectSearch extends Component
             ->whereIn('section_id', $this->sectionIds ?? [])
             ->first();
 
-        if (!$process) {
-            $this->addError('manual_process_id', 'فرآیند انتخاب‌شده با عیب، زیرعیب یا دپارتمان فعلی همخوانی ندارد.');
-            return;
-        }
 
         $this->storeRequest(
-            processId: $process->id,
-            sectionId: $process->section_id,
+            processId: null,
+            sectionId: null,
             reasonText: $this->reason_text,
             type: true
         );
 
         $this->reset([
-            'manual_process_id',
             'reason_text',
         ]);
 
