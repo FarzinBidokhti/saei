@@ -143,6 +143,7 @@ class UserController extends Controller
 
         $user->departments()->sync($syncData);
 
+        Alert::success('موفقیت', 'کاربر با موفقیت ویرایش شد.');
         return redirect()->route('users.edit', $user->id);
     }
 

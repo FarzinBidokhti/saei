@@ -40,7 +40,8 @@
                         <div class="dropdown-header d-flex align-items-center border-bottom py-4">
                             <div class="me-3 flex-shrink-0">
                                 <div class="avatar avatar-md">
-                                    <img alt="" class="rounded-circle" src="assets/img/avatar/10.jpg" />
+                                    <img alt="" class="rounded-circle"
+                                        src="{{ asset('assets/img/avatar/10.jpg') }}" />
                                 </div>
                             </div>
                             <div class="flex-grow-1 text-start">
@@ -50,7 +51,9 @@
                                     @endauth
                                 </h6>
                                 <span class="text-muted">
-                                    مدیر
+                                    @auth
+                                        {{ auth()->user()->getRoleNames()->first() ?? 'کاربر' }}
+                                    @endauth
                                 </span>
                             </div>
                         </div>

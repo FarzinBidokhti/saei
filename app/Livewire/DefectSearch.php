@@ -29,7 +29,11 @@ class DefectSearch extends Component
     {
         abort_unless(auth()->user()->can('create defect requests'), 403);
 
-        $this->departments = Department::get();
+        $this->departments = auth()->user()->departments;
+
+        if ($this->departments->count() === 1) {
+            $this->department_id = $this->departments->first()->id;
+        }
     }
 
     public function search()
