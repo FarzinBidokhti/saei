@@ -23,6 +23,8 @@ function permissionResource($uri, $controller, $permissionBase)
     Route::resource($uri, $controller)->only(['show'])->middleware("permission:view {$permissionBase}");
 }
 
+Route::redirect('/', '/login', 301);
+
 Route::middleware(['auth', 'check.session'])->group(function () {
 
     Route::get('dashboard', function () {
