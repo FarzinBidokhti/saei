@@ -28,6 +28,10 @@
                                     </span>
                                     لیست کاربران
                                 </h3>
+
+                                <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
+                                    ایجا کاربر
+                                </a>
                             </div>
 
                             <div class="pure-card-body pb-3">

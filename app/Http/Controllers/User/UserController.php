@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -29,7 +30,10 @@ class UserController extends Controller
     {
         abort_unless(auth()->user()->can('create users'), 403);
 
-        return view('pages.user.create');
+        $roles       = Role::all();
+        $departments = Department::all();
+
+        return view('pages.user.create', compact('departments', 'roles'));
     }
 
     /**
@@ -39,15 +43,30 @@ class UserController extends Controller
     {
         abort_unless(auth()->user()->can('create users'), 403);
 
-        $user             = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->username   = $request->username;
-        $user->password   = $request->password;
-        $user->work_at    = $request->work_at;
-        $user->save();
+        $data = $request->validated();
 
-        Alert::success('موفق', 'کاربر با موفقیت ثبت شد');
+        $user = User::create([
+            'username'   => $data['username'],
+            'first_name' => $data['first_name'],
+            'last_name'  => $data['last_name'],
+            'is_active'  => $data['is_active'],
+        ]);
+
+        $user->assignRole($data['role']);
+
+        $departments = collect($request->input('departments', []))
+            ->mapWithKeys(function ($departmentId) {
+                return [
+                    $departmentId => [
+                        'created_by' => auth()->id(),
+                    ]
+                ];
+            })
+            ->toArray();
+
+        $user->departments()->sync($departments);
+
+        Alert::success('ثبت موفق', 'کاربر با موفقیت ایجاد شد.');
 
         return redirect()->route('users.index');
     }

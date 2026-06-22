@@ -32,36 +32,27 @@ class LdapLoginController extends Controller
         $password   = $request->password;
         $agent      = new Agent();
         $deviceType = $this->getDeviceType($agent);
-        $ldapUser   = LdapUser::where('samaccountname', '=', $username)->first();
 
-        if ($ldapUser) {
-            if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
-                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.');
-                Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
-                return back()->withInput();
-            }
+        $user = User::where('username', $username)->first();
 
-            $user = User::where('username', $username)->first();
-            if (!$user) {
-                $user = User::create([
-                    'first_name' => $ldapUser->getFirstAttribute('givenname') ?? '',
-                    'last_name'  => $ldapUser->getFirstAttribute('sn') ?? '',
-                    'username'   => $username,
-                    'work_at'    => 'default',
-                    'is_active'  => 1,
-                    'guid'       => $ldapUser->getConvertedGuid(),
-                ]);
+        if (!$user) {
+            $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور نادرست است.');
+            Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور نادرست است.');
+            return back()->withInput();
+        }
 
-                $user->assignRole('operator');
-            }
-        } else {
-            $user = User::where('username', $username)->whereNull('guid')->first();
+        $ldapUser = LdapUser::where('samaccountname', '=', $username)->first();
 
-            if (!$user || !\Hash::check($password, $user->password)) {
-                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یافت نشد یا رمز عبور اشتباه است.');
-                Alert::error('خطای ورود', 'اطلاعات ورود صحیح نمی‌باشد.');
-                return back()->withInput();
-            }
+        if (!$ldapUser) {
+            $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور نادرست است.', $user->id);
+            Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور نادرست است.');
+            return back()->withInput();
+        }
+
+        if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
+            $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور نادرست است.', $user->id);
+            Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور نادرست است.');
+            return back()->withInput();
         }
 
         if (!$user->is_active) {
