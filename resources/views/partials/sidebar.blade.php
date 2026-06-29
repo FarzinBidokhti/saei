@@ -115,6 +115,27 @@
                     </li>
                 @endcan
 
+                @can('view approverequests')
+                    <li class="app-sidebar-menu-item">
+                        <a class="menu-link d-flex align-items-center" href="{{ route('approverequests.index') }}">
+                            <span class="menu-icon flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path
+                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                    <path
+                                        d="M9.5 1a.5.5 0 0 1 .5.5v1A1.5 1.5 0 0 1 8.5 4h-1A1.5 1.5 0 0 1 6 2.5v-1A.5.5 0 0 1 6.5 1h3zM7 2v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V2H7z" />
+                                </svg>
+                            </span>
+                            <span class="menu-title flex-grow-1 pe-2">
+                                لیست درخواست ها
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('create defect requests')
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('defectrequests.create') }}">
@@ -136,8 +157,8 @@
                     <li class="app-sidebar-menu-item">
                         <a class="menu-link d-flex align-items-center" href="{{ route('users.index') }}">
                             <span class="menu-icon flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                    class="bi bi-people" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
                                     <path
                                         d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002z" />
                                     <path fill-rule="evenodd"

@@ -6,13 +6,13 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Access\RoleController;
 use App\Http\Controllers\Defect\DefectController;
 use App\Http\Controllers\Import\ImportController;
-use App\Http\Controllers\Auth\LdapLoginController;
 use App\Http\Controllers\Access\PermissionController;
 use App\Http\Controllers\SubDefect\SubDefectController;
 use App\Http\Controllers\Access\RoleUserAssignController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\DefectRequest\DefectRequestController;
 use App\Http\Controllers\Access\RolePermissionAssignController;
+use App\Http\Controllers\ApproveRequest\ApproveRequestController;
 
 function permissionResource($uri, $controller, $permissionBase)
 {
@@ -31,13 +31,14 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         return view('dashboard');
     })->middleware('permission:view dashboard')->name('dashboard');
 
-    permissionResource('users',          UserController::class, 'users');
-    permissionResource('defects',        DefectController::class, 'defects');
-    permissionResource('subdefects',     SubDefectController::class, 'subdefects');
-    permissionResource('departments',    DepartmentController::class, 'departments');
-    permissionResource('defectrequests', DefectRequestController::class, 'defect requests');
-    permissionResource('roles',          RoleController::class, 'roles');
-    permissionResource('permissions',    PermissionController::class, 'permissions');
+    permissionResource('users',           UserController::class, 'users');
+    permissionResource('defects',         DefectController::class, 'defects');
+    permissionResource('subdefects',      SubDefectController::class, 'subdefects');
+    permissionResource('departments',     DepartmentController::class, 'departments');
+    permissionResource('defectrequests',  DefectRequestController::class, 'defect requests');
+    permissionResource('roles',           RoleController::class, 'roles');
+    permissionResource('permissions',     PermissionController::class, 'permissions');
+    permissionResource('approverequests', ApproveRequestController::class, 'approverequests');
 
     Route::resource('role-user-assign',       RoleUserAssignController::class)->middleware('permission:assign roles to users');
     Route::resource('role-permission-assign', RolePermissionAssignController::class)->middleware('permission:assign permissions to roles');
