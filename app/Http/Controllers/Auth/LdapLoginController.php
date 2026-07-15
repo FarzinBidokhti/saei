@@ -41,32 +41,37 @@ class LdapLoginController extends Controller
             return back()->withInput();
         }
 
-        if (!empty($user->guid)) {
-            $ldapUser = LdapUser::where('samaccountname', '=', $username)->first();
-
-            if (!$ldapUser) {
-                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.', $user->id);
-                Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
-                return back()->withInput();
-            }
-
-            if (!$ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
-                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.', $user->id);
-                Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
-                return back()->withInput();
-            }
-        } else {
-            if (empty($user->password) || !Hash::check($password, $user->password)) {
-                $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.', $user->id);
-                Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
-                return back()->withInput();
-            }
-        }
-
         if (!$user->is_active) {
             $this->logLoginFailure($username, $deviceType, $agent, 'حساب کاربری شما فعال نمی باشد.', $user->id);
             Alert::error('خطای دسترسی', 'حساب کاربری شما فعال نمی باشد.');
             return back();
+        }
+
+        $authenticated = false;
+        $ldapUser      = LdapUser::where('samaccountname', '=', $username)->first();
+
+        if ($ldapUser) {
+            if ($ldapUser->getConnection()->auth()->attempt($ldapUser->getDn(), $password)) {
+                $authenticated = true;
+
+                if (empty($user->guid) || $user->guid !== $ldapUser->getConvertedGuid()) {
+                    $user->update([
+                        'guid' => $ldapUser->getConvertedGuid()
+                    ]);
+                }
+            }
+        }
+
+        if (!$authenticated) {
+            if (!empty($user->password) && Hash::check($password, $user->password)) {
+                $authenticated = true;
+            }
+        }
+
+        if (!$authenticated) {
+            $this->logLoginFailure($username, $deviceType, $agent, 'نام کاربری یا کلمه عبور اشتباه است.', $user->id);
+            Alert::error('خطای ورود', 'نام کاربری یا کلمه عبور اشتباه است.');
+            return back()->withInput();
         }
 
         $activeSession = LoginLog::where('user_id', $user->id)

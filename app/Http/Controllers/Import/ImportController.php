@@ -18,7 +18,10 @@ class ImportController extends Controller
 {
     public function importCsv()
     {
-        $path = storage_path('app/sanad.xlsm');
+        set_time_limit(0);
+        ini_set('max_execution_time', 0);
+
+        $path = storage_path('sanad1.xlsm');
 
         if (!file_exists($path)) {
             dump('File not found!');

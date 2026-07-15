@@ -50,6 +50,11 @@ class PermissionLabelSeeder extends Seeder
             'edit defect requests'   => 'ویرایش درخواست‌های عیب',
             'delete defect requests' => 'حذف درخواست‌های عیب',
 
+            'view approverequests'   => 'مشاهده تایید درخواست',
+            'create approverequests' => 'ایجاد تایید درخواست',
+            'edit approverequests'   => 'ویرایش تایید درخواست',
+            'delete approverequests' => 'حذف تایید درخواست',
+
             'assign roles to users'       => 'تخصیص نقش به کاربران',
             'assign permissions to roles' => 'تخصیص مجوز به نقش‌ها',
 
