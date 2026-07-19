@@ -491,7 +491,7 @@
 
                             <div class="stat-value-row">
                                 <strong>{{ number_format($s['value']) }}</strong>
-                                <small>مورد</small>
+                                <small>نفر</small>
                             </div>
 
                             <div class="stat-trend">
@@ -571,18 +571,9 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="content-card" style="background: #eff6ff; border-color: #bfdbfe;">
-                        <div class="p-4 text-center">
-                            <i class="bi bi-shield-lock-fill text-primary mb-2" style="font-size: 40px;"></i>
-                            <h6 class="fw-bold mb-1">امنیت سیستم برقرار است</h6>
-                            <p class="text-muted mb-0" style="font-size: 12px;">اتصال شما از طریق پروتکل LDAP ایمن شده است.
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
-        @endif ($isOperator)
+        @endif
     </div>
 
     <script>

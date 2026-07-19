@@ -14,6 +14,16 @@ class TestUsersSeeder extends Seeder
     {
         $users = [
             [
+                'id'         => 1,
+                'first_name' => 'فرزین',
+                'last_name'  => 'بیدختی',
+                'username'   => 'f.bidokhti',
+                'is_active'  => true,
+                'created_at' => '2026-07-01 04:42:49',
+                'updated_at' => '2026-07-01 04:42:49',
+                'guid'       => 'e8a3c2e1-7ef5-4b0e-a2f3-d7386e5338d3',
+            ],
+            [
                 'id'         => 2,
                 'first_name' => 'Test1',
                 'last_name'  => 'SSU',
