@@ -108,10 +108,21 @@ class UserController extends Controller
     {
         abort_unless(auth()->user()->can('edit users'), 403);
 
-        $departments = Department::query()->get();
+        $departments       = Department::query()->get();
         $userDepartmentIds = $user->departments()
             ->pluck('departments.id')
             ->toArray();
+
+        $roles    = Role::query()->orderBy('name')->get();
+        $userRole = $user->roles->pluck('name')->first();
+
+        return view('pages.user.edit', compact(
+            'user',
+            'departments',
+            'userDepartmentIds',
+            'roles',
+            'userRole'
+        ));
 
         return view('pages.user.edit', compact('user', 'departments', 'userDepartmentIds'));
     }
@@ -126,10 +137,13 @@ class UserController extends Controller
         $validated = $request->validated();
 
         $user->update([
+            'username'   => $validated['username'],
             'first_name' => $validated['first_name'],
             'last_name'  => $validated['last_name'],
             'is_active'  => $validated['is_active'],
         ]);
+
+        $user->syncRoles([$validated['role']]);
 
         $syncData = collect($validated['departments'] ?? [])
             ->mapWithKeys(function ($departmentId) {
@@ -150,15 +164,43 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
         abort_unless(auth()->user()->can('delete users'), 403);
 
-        $user = User::findOrFail($id);
+        if (auth()->id() === $user->id) {
+            Alert::error('خطا', 'شما نمی‌توانید حساب کاربری خودتان را حذف کنید.');
+            return redirect()->route('users.edit', $user->id);
+        }
+
+        $user->update([
+            'is_active' => false,
+        ]);
+
         $user->delete();
 
-        Alert::success('موفق', 'کاربر با موفقیت حذف شد');
+        Alert::success('موفقیت', 'کاربر با موفقیت حذف شد.');
 
         return redirect()->route('users.index');
+    }
+
+    public function restore(User $user)
+    {
+        abort_unless(auth()->user()->can('delete users'), 403);
+
+        if (! $user->trashed()) {
+            Alert::error('خطا', 'این کاربر حذف نشده است.');
+            return redirect()->route('users.edit', $user->id);
+        }
+
+        $user->restore();
+
+        $user->update([
+            'is_active' => true,
+        ]);
+
+        Alert::success('موفق', 'حساب کاربری با موفقیت بازیابی شد.');
+
+        return redirect()->route('users.edit', $user->id);
     }
 }

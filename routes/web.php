@@ -14,13 +14,29 @@ use App\Http\Controllers\DefectRequest\DefectRequestController;
 use App\Http\Controllers\Access\RolePermissionAssignController;
 use App\Http\Controllers\ApproveRequest\ApproveRequestController;
 
-function permissionResource($uri, $controller, $permissionBase)
+function permissionResource(string $uri, string $controller, string $permissionBase, array $withTrashed = []): void
 {
     Route::resource($uri, $controller)->only(['index'])->middleware("permission:view {$permissionBase}");
     Route::resource($uri, $controller)->only(['create', 'store'])->middleware("permission:create {$permissionBase}");
-    Route::resource($uri, $controller)->only(['edit', 'update'])->middleware("permission:edit {$permissionBase}");
-    Route::resource($uri, $controller)->only(['destroy'])->middleware("permission:delete {$permissionBase}");
-    Route::resource($uri, $controller)->only(['show'])->middleware("permission:view {$permissionBase}");
+
+    $editRoutes         = Route::resource($uri, $controller)->only(['edit', 'update'])->middleware("permission:edit {$permissionBase}");
+    $editTrashedActions = array_intersect($withTrashed, ['edit', 'update']);
+
+    if ($editTrashedActions !== []) {
+        $editRoutes->withTrashed($editTrashedActions);
+    }
+
+    $destroyRoutes = Route::resource($uri, $controller)->only(['destroy'])->middleware("permission:delete {$permissionBase}");
+
+    if (in_array('destroy', $withTrashed, true)) {
+        $destroyRoutes->withTrashed(['destroy']);
+    }
+
+    $showRoutes = Route::resource($uri, $controller)->only(['show'])->middleware("permission:view {$permissionBase}");
+
+    if (in_array('show', $withTrashed, true)) {
+        $showRoutes->withTrashed(['show']);
+    }
 }
 
 Route::redirect('/', '/login', 301);
@@ -31,7 +47,12 @@ Route::middleware(['auth', 'check.session'])->group(function () {
         return view('dashboard');
     })->middleware('permission:view dashboard')->name('dashboard');
 
-    permissionResource('users',           UserController::class, 'users');
+    Route::patch('users/{user}/restore', [UserController::class, 'restore'])
+        ->withTrashed()
+        ->middleware('permission:delete users')
+        ->name('users.restore');
+
+    permissionResource('users',           UserController::class, 'users', ['edit', 'show']);
     permissionResource('defects',         DefectController::class, 'defects');
     permissionResource('subdefects',      SubDefectController::class, 'subdefects');
     permissionResource('departments',     DepartmentController::class, 'departments');

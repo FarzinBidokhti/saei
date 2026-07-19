@@ -23,17 +23,22 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'username'      => ['required', 'string', 'max:255'],
             'first_name'    => ['required', 'string', 'max:255'],
             'last_name'     => ['required', 'string', 'max:255'],
             'is_active'     => ['required', 'boolean'],
             'departments'   => ['nullable', 'array'],
             'departments.*' => ['integer', 'exists:departments,id'],
+            'role'          => ['required', 'exists:roles,name'],
         ];
     }
 
     public function messages(): array
     {
         return [
+            'username.required'      => 'وارد کردن نام کاربری الزامی است.',
+            'username.string'        => 'نام کاربری واردشده معتبر نیست.',
+            'username.max'           => 'نام کاربری نباید بیشتر از ۲۵۵ کاراکتر باشد.',
             'first_name.required'    => 'وارد کردن نام الزامی است.',
             'first_name.string'      => 'نام واردشده معتبر نیست.',
             'first_name.max'         => 'نام نباید بیشتر از ۲۵۵ کاراکتر باشد.',
@@ -45,6 +50,8 @@ class UpdateRequest extends FormRequest
             'departments.array'      => 'لیست دپارتمان‌ها معتبر نیست.',
             'departments.*.integer'  => 'شناسه دپارتمان انتخاب‌شده معتبر نیست.',
             'departments.*.exists'   => 'یکی از دپارتمان‌های انتخاب‌شده در سیستم وجود ندارد.',
+            'role.required'          => 'انتخاب نقش کاربری الزامی است.',
+            'role.exists'            => 'نقش کاربری انتخاب‌شده معتبر نیست.',
         ];
     }
 }

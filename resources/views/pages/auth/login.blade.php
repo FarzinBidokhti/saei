@@ -38,7 +38,7 @@
                                         نام کاربری
                                     </label>
                                     <input class="form-control text-start" id="username" type="text" name="username"
-                                        autocomplete="username"  />
+                                        autocomplete="username" />
                                 </div>
 
                                 <div class="mb-3">
@@ -46,9 +46,35 @@
                                         رمز عبور
                                     </label>
 
-                                    <div class="input-group mb-3">
-                                        <input class="form-control text-start" id="password" type="password" name="password"
-                                            autocomplete="new-password" />
+                                    <div class="password-field-wrapper">
+                                        <button type="button" id="togglePassword" class="password-toggle-btn"
+                                            aria-label="نمایش رمز عبور">
+                                            <span id="passwordEyeIcon" class="password-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path
+                                                        d="M2.25 12S5.75 5.75 12 5.75 21.75 12 21.75 12 18.25 18.25 12 18.25 2.25 12 2.25 12Z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                            </span>
+
+                                            <span id="passwordEyeOffIcon" class="password-icon" style="display: none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 3L21 21" />
+                                                    <path d="M10.58 10.58A2 2 0 0 0 13.42 13.42" />
+                                                    <path
+                                                        d="M9.88 5.18A9.4 9.4 0 0 1 12 4.94C18.25 4.94 21.75 12 21.75 12A16.8 16.8 0 0 1 18.66 15.96" />
+                                                    <path
+                                                        d="M6.61 6.61C3.91 8.43 2.25 12 2.25 12S5.75 19.06 12 19.06A9.7 9.7 0 0 0 16.12 18.14" />
+                                                </svg>
+                                            </span>
+                                        </button>
+
+                                        <input class="form-control password-input text-start" style="direction: ltr" id="password" type="password"
+                                            name="password" autocomplete="current-password" />
                                     </div>
                                 </div>
 
@@ -136,4 +162,84 @@
             </div>
         @endif
     </div>
+
+    <style>
+        .password-field-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .password-toggle-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            width: 34px;
+            height: 34px;
+            transform: translateY(-50%);
+            border: none;
+            outline: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            padding: 0;
+            border-radius: 8px;
+        }
+
+        .password-toggle-btn:hover {
+            background-color: rgba(107, 114, 128, 0.08);
+        }
+
+        .password-toggle-btn:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .password-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .password-icon svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+            flex-shrink: 0;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+            const eyeIcon = document.getElementById('passwordEyeIcon');
+            const eyeOffIcon = document.getElementById('passwordEyeOffIcon');
+
+            if (!passwordInput || !toggleButton || !eyeIcon || !eyeOffIcon) {
+                return;
+            }
+
+            toggleButton.addEventListener('click', function() {
+                const passwordIsHidden = passwordInput.type === 'password';
+
+                passwordInput.type = passwordIsHidden ? 'text' : 'password';
+
+                if (passwordIsHidden) {
+                    eyeIcon.style.display = 'none';
+                    eyeOffIcon.style.display = 'inline-flex';
+                    toggleButton.setAttribute('aria-label', 'پنهان کردن رمز عبور');
+                } else {
+                    eyeIcon.style.display = 'inline-flex';
+                    eyeOffIcon.style.display = 'none';
+                    toggleButton.setAttribute('aria-label', 'نمایش رمز عبور');
+                }
+            });
+        });
+    </script>
 @endsection

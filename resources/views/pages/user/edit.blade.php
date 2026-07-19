@@ -35,23 +35,53 @@
                                     @csrf
                                     @method('PATCH')
                                     <div class="row gy-5">
-                                        <div class="col-md-12">
-                                            <div class="alert alert-warning fs-4" role="alert">
-                                                امکان ویرایش
-                                                <span class="fw-bold">
-                                                    نام کاربری
-                                                </span>
-                                                در فرم جاری وجود ندارد.
-                                            </div>
-                                        </div>
+                                        @can('delete users')
+                                            @if ($user->trashed())
+                                                <div
+                                                    class="alert alert-danger d-flex align-items-center justify-content-between mb-6">
+                                                    <div>
+                                                        کاربر مورد نظر حذف شده است، از طریق دکمه بازیابی می توانید حساب کاربری
+                                                        را بازیابی کنید.
+                                                    </div>
 
-                                        <div class="row mb-5">
+                                                    <button type="submit" form="restoreUserForm" class="btn btn-success"
+                                                        onclick="return confirm('آیا از بازیابی این کاربر مطمئن هستید؟')">
+                                                        بازیابی حساب کاربری
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        @endcan
+
+                                        <div class="row mb-5 mt-10">
                                             <div class="col-md-6">
                                                 <label class="form-label fw-bold" for="username">
                                                     نام کاربری
+                                                    <span class="text-danger">*</span>
                                                 </label>
                                                 <input class="form-control" id="username" type="text"
-                                                    value="{{ $user->username }}" disabled>
+                                                    value="{{ old($user->username) ? old($user->username) : $user->username }}"
+                                                    name="username">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold" for="role">
+                                                    نقش کاربر
+                                                    <span class="text-danger">*</span>
+                                                </label>
+
+                                                <select class="form-select" name="role" id="role">
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role->name }}"
+                                                            {{ old('role', $userRole) == $role->name ? 'selected' : '' }}>
+                                                            {{ $role->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
+                                                @error('role')
+                                                    <div class="text-danger small mt-2">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -164,12 +194,37 @@
                                         </div>
 
                                         <div class="col-12 mt-7">
-                                            <button class="btn btn-primary float-start" type="submit">
-                                                ویرایش
-                                            </button>
+                                            <div class="d-flex align-items-center justify-content-end gap-3">
+                                                @can('delete users')
+                                                    <button class="btn btn-danger" type="submit" form="deleteUserForm"
+                                                        onclick="return confirm('آیا از حذف این کاربر مطمئن هستید؟')">
+                                                        حذف کاربر
+                                                    </button>
+                                                @endcan
+
+                                                <button class="btn btn-primary" type="submit">
+                                                    ویرایش
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
+
+                                @can('delete users')
+                                    <form id="deleteUserForm" action="{{ route('users.destroy', $user->id) }}"
+                                        method="POST" class="d-none">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan
+
+                                @can('delete users')
+                                    <form id="restoreUserForm" action="{{ route('users.restore', $user->id) }}"
+                                        method="POST" class="d-none">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
+                                @endcan
                             </div>
                         </div>
                     </div>

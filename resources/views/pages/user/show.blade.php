@@ -51,12 +51,19 @@
                                                 @if ($user->is_active)
                                                     <span
                                                         class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
-                                                        حساب فعال
+                                                        حساب کاربری فعال
                                                     </span>
                                                 @else
                                                     <span
                                                         class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill">
-                                                        حساب غیرفعال
+                                                        حساب کاربری غیرفعال
+                                                    </span>
+                                                @endif
+
+                                                @if ($user->deleted_at)
+                                                    <span
+                                                        class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill">
+                                                        حساب کاربری حذف شده
                                                     </span>
                                                 @endif
                                             </div>
@@ -64,6 +71,26 @@
                                     </div>
 
                                     <div class="row g-3">
+                                        <div class="col-12 col-md-6 col-xl-auto">
+                                            <div class="info-stat-card h-100">
+                                                <div class="info-stat-icon bg-info bg-opacity-10 text-info">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                                        <path
+                                                            d="M8 9a5 5 0 0 0-5 5 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5 5 5 0 0 0-5-5" />
+                                                    </svg>
+                                                </div>
+
+                                                <div class="info-stat-content">
+                                                    <div class="info-stat-label">نقش</div>
+                                                    <div class="info-stat-value">
+                                                        {{ $user->getRoleNames()->first() }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-12 col-md-6 col-xl-auto">
                                             <div class="info-stat-card h-100">
                                                 <div class="info-stat-icon bg-primary bg-opacity-10 text-primary">
@@ -117,7 +144,7 @@
                                         <button class="nav-link active px-4 py-3 rounded-4 fw-semibold" id="profile-tab"
                                             data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
                                             role="tab" aria-controls="profile-tab-pane" aria-selected="true">
-                                            اطلاعات هویتی و حساب کاربری
+                                            اطلاعات هویتی و حساب کاربری کاربری
                                         </button>
                                     </li>
 
@@ -173,7 +200,7 @@
 
                                             <div class="col-12">
                                                 <div class="border rounded-4 p-5">
-                                                    <h4 class="fw-bold fs-5 mb-5">اطلاعات حساب کاربری</h4>
+                                                    <h4 class="fw-bold fs-5 mb-5">اطلاعات حساب کاربری کاربری</h4>
 
                                                     <div class="row gy-4 gx-5">
                                                         <div class="col-md-6">
@@ -188,7 +215,7 @@
 
                                                         <div class="col-md-6">
                                                             <label class="form-label fw-bold text-muted mb-2">
-                                                                وضعیت حساب
+                                                                وضعیت حساب کاربری
                                                             </label>
 
                                                             <div

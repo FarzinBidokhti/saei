@@ -19,6 +19,7 @@ final class UserTable extends PowerGridComponent
         return [
             PowerGrid::header()
                 ->showSearchInput(),
+
             PowerGrid::footer()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -27,7 +28,7 @@ final class UserTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return User::query();
+        return User::query()->withTrashed();
     }
 
     public function relationSearch(): array
@@ -42,11 +43,18 @@ final class UserTable extends PowerGridComponent
             ->add('first_name')
             ->add('last_name')
             ->add('username')
+            ->add('role_name',  fn(User $user) => $user->getRoleNames()->first())
             ->add(
                 'is_active_label',
                 fn(User $u) => $u->is_active
                     ? '<span class="badge badge-label-success py-2" style="position: inherit">فعال</span>'
                     : '<span class="badge badge-label-danger py-2" style="position: inherit">غیرفعال</span>'
+            )
+            ->add(
+                'deleted_status_label',
+                fn(User $u) => $u->trashed()
+                    ? '<span class="badge badge-label-danger py-2" style="position: inherit">حذف‌شده</span>'
+                    : ''
             )
             ->add('created_at_convert', fn(User $user) => verta($user->created_at)->format('Y/m/d'));
     }
@@ -54,13 +62,34 @@ final class UserTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('شناسه', 'id')->sortable()->searchable(),
-            Column::make('نام', 'first_name')->sortable()->searchable(),
-            Column::make('نام خانوادگی', 'last_name')->sortable()->searchable(),
-            Column::make('نام کاربری', 'username')->sortable()->searchable(),
-            Column::make('فعال/غیرفعال', 'is_active_label')
-                ->contentClassField('is_active_class'),
-            Column::make('تاریخ ثبت نام', 'created_at_convert')->sortable()->searchable(),
+            Column::make('شناسه', 'id')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('نام', 'first_name')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('نام خانوادگی', 'last_name')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('نام کاربری', 'username')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('نقش', 'role_name')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('فعال/غیرفعال', 'is_active_label'),
+
+            Column::make('وضعیت حذف', 'deleted_status_label'),
+
+            Column::make('تاریخ ثبت نام', 'created_at_convert')
+                ->sortable()
+                ->searchable(),
+
             Column::action('عملیات'),
         ];
     }
@@ -83,5 +112,10 @@ final class UserTable extends PowerGridComponent
     public function filters(): array
     {
         return [];
+    }
+
+    public function rowClasses(User $row): string
+    {
+        return $row->trashed() ? 'table-danger' : '';
     }
 }
