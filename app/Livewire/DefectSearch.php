@@ -50,29 +50,39 @@ class DefectSearch extends Component
             'reason_text',
         ]);
 
-        if (!$this->defect_code || !$this->department_id) {
+        if (blank($this->defect_code) || blank($this->department_id)) {
             $this->errorMessage = 'کد عیب و دپارتمان الزامی است';
             return;
         }
 
-        $parts = explode('.', $this->defect_code);
+        $normalizedCode = trim($this->defect_code);
 
-        if (count($parts) != 2) {
-            $this->errorMessage = 'فرمت کد صحیح نیست (مثال: 6.3)';
+        if (!preg_match('/^\d+(?:\.\d+)?$/', $normalizedCode)) {
+            $this->errorMessage = 'فرمت کد صحیح نیست؛ برای مثال 6، 6.0 یا 6.3 وارد کنید.';
             return;
         }
 
-        $defectCode = trim($parts[0]);
-        $subCode = trim($parts[1]);
+        if (!str_contains($normalizedCode, '.')) {
+            $normalizedCode .= '.0';
+        }
 
-        $this->defect = Defect::where('code', $defectCode)->first();
+        $this->defect_code = $normalizedCode;
+
+        [$defectCode, $subCode] = explode('.', $normalizedCode, 2);
+
+        dd($defectCode . ' - ' . $subCode);
+
+        $this->defect = Defect::query()
+            ->where('code', $defectCode)
+            ->first();
 
         if (!$this->defect) {
             $this->errorMessage = 'عیب یافت نشد';
             return;
         }
 
-        $this->subDefect = SubDefect::where('defect_id', $this->defect->id)
+        $this->subDefect = SubDefect::query()
+            ->where('defect_id', $this->defect->id)
             ->where('code', $subCode)
             ->first();
 
@@ -81,13 +91,15 @@ class DefectSearch extends Component
             return;
         }
 
-        $this->sectionIds = Section::where('department_id', $this->department_id)
+        $this->sectionIds = Section::query()
+            ->where('department_id', $this->department_id)
             ->pluck('id')
-            ->toArray();
+            ->all();
 
-        $this->processes = Process::where('sub_defect_id', $this->subDefect->id)
+        $this->processes = Process::query()
+            ->where('sub_defect_id', $this->subDefect->id)
             ->whereIn('section_id', $this->sectionIds)
-            ->orderByRaw('CAST(percent AS DECIMAL) desc')
+            ->orderByRaw('CAST(percent AS DECIMAL) DESC')
             ->get();
     }
 

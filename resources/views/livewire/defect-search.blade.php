@@ -12,6 +12,12 @@
                         <input class="form-control" id="defect_code" type="text" wire:model="defect_code"
                             placeholder="مثال: 6.3">
 
+                        <div class="text-primary mt-1 small">
+                            فرمت‌های قابل قبول:
+                            6  ,
+                            6.0,
+                            6.3,
+                        </div>
                         @error('defect_code')
                             <div class="text-danger mt-1 small">{{ $message }}</div>
                         @enderror
